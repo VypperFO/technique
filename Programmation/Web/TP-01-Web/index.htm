@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/yourcode.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/utils.css" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/svg/LogoBlanc - ProjetWeb.svg"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Zachem</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <div onclick="window.scrollTo({ top: 110, behavior: 'smooth' });">
+        <img class="logo" src="/assets/svg/LogoBlanc - ProjetWeb.svg" alt="logo" />
+      </div>
+      <div class="navbar-text">
+        <p id="support-menu" tabindex="5" onclick="scrollAction('support')">
+          support.
+        </p>
+        <p id="monde-menu" tabindex="4" onclick="scrollAction('monde')">
+          monde.
+        </p>
+        <p id="economie-menu" tabindex="3" onclick="scrollAction('economie')">
+          économie.
+        </p>
+        <p id="russie-menu" tabindex="2" onclick="scrollAction('russie')">
+          russie.
+        </p>
+        <p id="ukraine-menu" tabindex="1" onclick="scrollAction('ukraine')">
+          ukraine.
+        </p>
+      </div>
+    </div>
+
+    <div class="main">
+      <!-- Hero Page -->
+      <div id="hero-page" class="hero-page" alt="image enfant émigrant">
+        <div class="text-hero">
+          <h1 tabindex="6">Zachem?</h1>
+          <h1 id="hero-title" tabindex="7">
+            L'Ukraine au <span class="red" id="front">front</span>.
+          </h1>
+          <p id="hero-p" tabindex="8">
+            L'horreur présentée en chiffres et en images.
+          </p>
+          <div class="btn">
+            <button
+              tabindex="9"
+              class="btn-full"
+              id="btn-origin"
+              onclick="scrollAction('ukraine')"
+            >
+              origine.
+            </button>
+            <button
+              tabindex="10"
+              class="btn-ghost"
+              onclick="scrollAction('support')"
+            >
+              support.
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ukraine Page -->
+      <div id="ukraine" class="ukraine">
+        <div class="grid-img-ukraine-01" tabindex="15" alt="image paysage détruit"></div>
+        <div class="grid-item">
+          <h2 id="ukraine-title-num" tabindex="11">
+            ukraine en <span class="bleu">chiffres</span>.
+          </h2>
+          <p id="deaths" tabindex="12">
+            15 000 <span class="red">morts</span>.
+          </p>
+          <p id="blesse" tabindex="13">1900 blessées</p>
+          <p id="moved" tabindex="14">2.8 millions déplacées</p>
+        </div>
+        <div class="grid-item">
+          <h2 id="ukraine-title-images" tabindex="16">
+            ukraine en <span class="bleu">images</span>.
+          </h2>
+          <p id="batiment" tabindex="17">1700 bâtiments détruits</p>
+          <p id="dommage" tabindex="18">
+            119 milliards en <span class="red">dommages</span>.
+          </p>
+          <div class="color"></div>
+        </div>
+        <div class="grid-img-ukraine-02" tabindex="19" alt="image manifestion ukraine"></div>
+      </div>
+
+      <!-- Russie Page-->
+      <div id="russie" class="russie">
+        <div class="russie-titre">
+          <h2 id="russie-title" tabindex="20">Réaction du peuple russe.</h2>
+        </div>
+
+        <div class="russie-img-container">
+          <div class="russie-card">
+            <img
+              tabindex="22"
+              src="/assets/img/_123545093_hi074346119.jpg"
+              alt="manifestation pancarte stop the war"
+            />
+            <p id="rev" tabindex="21">révoltes.</p>
+          </div>
+          <div class="russie-card">
+            <img
+              tabindex="24"
+              src="/assets/img/ukraine.PNG"
+              alt="manifestations en ukraine"
+            />
+            <p id="des" tabindex="23">désaccord.</p>
+          </div>
+          <div class="russie-card">
+            <img
+              tabindex="26"
+              src="/assets/img/_123545166_hi074346031.jpg"
+              alt="manifestation devant un bâtiment"
+            />
+            <p id="manif" tabindex="25">manifestations.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Russie -->
+      <div class="video-russie">
+        <video width="100%" autoplay muted tabindex="27">
+          <source
+            src="/assets/vid/Y2Mate.is - Protests Erupt in Moscow and St. Petersburg Over Russian Invasion of Ukraine-KsyzTpL16hQ-720p-1650229846370.mp4"
+            type="video/mp4"
+            alt="vidéo manifestations en Russie"
+          />
+        </video>
+      </div>
+
+      <!-- Economie Page -->
+      <div id="economie" class="economie">
+        <img
+          src="/assets/img/Capture.PNG"
+          alt="main avec des roubles"
+          tabindex="31"
+        />
+        <div class="economie-texte">
+          <h1 id="econo-title" tabindex="28">
+            Chute du <span class="red">Rouble</span>.
+          </h1>
+          <p id="econo-p1" tabindex="29">
+            Les États-Unis et l'Union européenne ont déclaré qu'ils excluraient
+            certaines banques russes du système international de paiements
+            bancaires Swift et ont personnellement visé le président russe
+            Vladimir Poutine et son ministre des Affaires étrangères Sergei
+            Lavrov.
+          </p>
+          <p id="econo-p2" tabindex="30">
+            Pendant un moment, il fallait plus de
+            <span class="italic">130 roubles</span> pour faire un dollar
+            américain, et ce jusqu'au 1er janvier.
+          </p>
+        </div>
+      </div>
+
+      <!-- Waves -->
+      <div class="waves-01">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+            opacity=".25"
+            class="shape-fill"
+          ></path>
+          <path
+            d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+            opacity=".5"
+            class="shape-fill"
+          ></path>
+          <path
+            d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+            class="shape-fill"
+          ></path>
+        </svg>
+      </div>
+      <div class="custom-shape-divider-top-1650408024">
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+            opacity=".25"
+            class="shape-fill"
+          ></path>
+          <path
+            d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+            opacity=".5"
+            class="shape-fill"
+          ></path>
+          <path
+            d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+            class="shape-fill"
+          ></path>
+        </svg>
+      </div>
+
+      <!-- Monde Page -->
+      <div id="monde" class="monde">
+        <div class="monde-texte">
+          <h1 id="monde-maintitle" tabindex="32">
+            <span class="underline-red">Hausse</span> des prix.
+          </h1>
+          <h2 id="monde-title-01" tabindex="33">
+            <span class="red">Monter</span> de l'essence.
+          </h2>
+          <p id="monde-p1" tabindex="34">
+            La Russie détient 7% des parts du marché pétrolier. Naturellement,
+            le prix de l'or noir a augmenté puisque l'offre ne soutenait plus la
+            demande.
+          </p>
+          <h2 id="monde-title-02" tabindex="35">
+            <span class="red">Chute</span> de la bourse.
+          </h2>
+          <p id="monde-p2" tabindex="36">
+            La peur des investiseurs a créé une certaine volatilité dans les
+            marchés boursiers. Cela fera baisser considérablement tout les
+            secteurs.
+          </p>
+          <h2 id="monde-title-03" tabindex="37">
+            Panier d'épicerie plus <span class="red">cher</span>.
+          </h2>
+          <p id="monde-p3" tabindex="38">
+            Le prix des articles que nous mangeons dépend énormément du
+            transport de ce dernier. Si le prix du baril est élevé, les pommes
+            et bananes le seront aussi!
+          </p>
+        </div>
+        <img
+          src="/assets/img/gas_prices.PNG"
+          alt="pancarte d'essence"
+          tabindex="39"
+        />
+      </div>
+
+      <!-- Support Page -->
+      <div id="support" class="support">
+        <img
+          src="/assets/img/qr-code.png"
+          alt="code qr"
+          tabindex="40"
+        />
+        <div class="text-support">
+          <h1 id="support-title" tabindex="41">Supporter</h1>
+          <h1 id="support-title-02" tabindex="42">
+            L'<span class="red">Ukraine</span>.
+          </h1>
+          <p id="support-p" tabindex="43">Payment par BTC, ETC et USDT</p>
+          <a
+            href="https://www.blockchain.com/btc/address/357a3So9CbsNfBBgFYACGvxxS6tMaDoa1P"
+          >
+            <button class="btn-ghost" tabindex="44">donation.</button>
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer Page -->
+      <div class="footer">
+        <div>
+          <img onclick="window.scrollTo({ top: 110, behavior: 'smooth' });"
+            tabindex="45"
+            src="/assets/svg/LogoBlanc - ProjetWeb.svg"
+            alt="erreur de chargement"
+          />
+        </div>
+        <div>
+          <p tabindex="46">&copy; 2022 Zachem</p>
+          <p tabindex="47">Tout droits réservés</p>
+          <p id="date" tabindex="48"></p>
+          <div class="language">
+            <p class="lang" onclick="changeFrench()" tabindex="49">FR</p>
+            <p id="slash">/</p>
+            <p class="lang" onclick="changeEnglish()" tabindex="50">EN</p>
+          </div>
+        </div>
+        <div class="footer-logos">
+          <a href="https://www.facebook.com/UkraineUA.MFA" tabindex="51">
+            <img
+              src="/assets/svg/facebook-brands.svg"
+              alt="lien facebook ukraine"
+            />
+          </a>
+          <a href="https://www.instagram.com/ukraine/" >
+          <img tabindex="52"
+              src="/assets/svg/instagram-brands.svg"
+              alt="lien instagram ukraine"
+            />
+          <a href="https://twitter.com/mfa_ukraine" tabindex="53">
+            <img
+              src="/assets/svg/twitter-brands.svg"
+              alt="lien twitter ukraine"
+            />
+          </a>
+        </div>
+      </div>
+    </div>
+    <script src="./js/script.js"></script>
+  </body>
+</html>
