@@ -1,84 +1,84 @@
 #include <stdio.h>
 
-int MAXSIZE = 8;
-int stack[8];
-int top = -1;
-
-int isempty()
+struct StackArray
 {
+    int stackSize = 8;
+    int stack[stackSize];
+    int top = -1;
 
-    if (top == -1)
-        return 1;
-    else
-        return 0;
-}
-
-int isfull()
-{
-
-    if (top == MAXSIZE)
-        return 1;
-    else
-        return 0;
-}
-
-int peek()
-{
-    return stack[top];
-}
-
-int pop()
-{
-    int data;
-
-    if (!isempty())
+    int isEmpty()
     {
-        data = stack[top];
-        top = top - 1;
-        return data;
+        if (top == -1)
+            return 1;
+        else
+            return 0;
     }
-    else
-    {
-        printf("Could not retrieve data, Stack is empty.\n");
-    }
-}
 
-int push(int data)
-{
+    int isFull()
+    {
+        if (top == stackSize)
+            return 1;
+        else
+            return 0;
+    }
 
-    if (!isfull())
+    int peek()
     {
-        top = top + 1;
-        stack[top] = data;
+        return stack[top];
     }
-    else
+
+    int pop()
     {
-        printf("Could not insert data, Stack is full.\n");
+        int data;
+
+        if (!isEmpty())
+        {
+            data = stack[top];
+            top = top - 1;
+            return data;
+        }
+        else
+        {
+            printf("Could not retrieve data, Stack is empty.\n");
+        }
     }
-}
+
+    int push(int data)
+    {
+
+        if (!isFull())
+        {
+            top = top + 1;
+            stack[top] = data;
+        }
+        else
+        {
+            printf("Could not insert data, Stack is full.\n");
+        }
+    }
+};
 
 int main()
 {
-    // push items on to the stack
-    push(3);
-    push(5);
-    push(9);
-    push(1);
-    push(12);
-    push(15);
+    struct StackArray stackArray;
 
-    printf("Element at top of the stack: %d\n", peek());
+    // push items on to the stack
+    stackArray.push(3);
+    stackArray.push(5);
+    stackArray.push(7);
+    stackArray.push(17);
+
+    printf("Element at top of the stack: %d\n", stackArray.peek());
     printf("Elements: \n");
 
     // print stack data
-    while (!isempty())
+    while (!stackArray.isEmpty())
     {
-        int data = pop();
+        int data = stackArray.pop();
         printf("%d\n", data);
     }
 
-    printf("Stack full: %s\n", isfull() ? "true" : "false");
-    printf("Stack empty: %s\n", isempty() ? "true" : "false");
-
+    printf("Stack full: %s\n", stackArray.isFull() ? "true" : "false");
+    printf("Stack empty: %s\n", stackArray.isEmpty() ? "true" : "false");
     return 0;
 }
