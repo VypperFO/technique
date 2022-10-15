@@ -47,7 +47,7 @@ void tourHanoi(int nbDisque, struct ArrayStack *socle0, struct ArrayStack *socle
  
 
 void main() {
-    printf("Saissisez le nombre d'etages: ");
+    printf("Saissisez le nombre d'étages: ");
     int nbEtages = 0;
     scanf("%i", &nbEtages);
 
