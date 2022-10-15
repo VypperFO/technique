@@ -60,4 +60,8 @@ void main() {
     tourHanoi(nbEtages, socles[0], socles[1], socles[2]);
 
     printf("%d", nbMoves);
+
+    uninit(socles[0]);
+    uninit(socles[1]);
+    uninit(socles[2]);
 }

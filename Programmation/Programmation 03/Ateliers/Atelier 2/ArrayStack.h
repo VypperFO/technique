@@ -10,10 +10,15 @@ struct ArrayStack {
 struct ArrayStack* init(int lenght)
 {
     struct ArrayStack* stack = (struct ArrayStack*)malloc(sizeof(struct ArrayStack));
-    stack->lenght = lenght;
-    stack->top = -1;
-    stack->array = (int*)malloc(stack->lenght * sizeof(int));
+    stack -> lenght = lenght;
+    stack -> top = -1;
+    stack -> array = (int*)malloc(stack->lenght * sizeof(int));
     return stack;
+}
+
+void uninit(struct ArrayStack* stack){
+    free(stack -> array);
+    free(stack);
 }
   
 int isFull(struct ArrayStack* stack)
