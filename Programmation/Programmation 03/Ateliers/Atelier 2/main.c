@@ -1,68 +1,63 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define MAX 8
+#include "ArrayStack.h"
 
-int stack[MAX];
-int top;
+int nbMoves = 0;
 
-int isEmpty() {
-    if (top == -1)
-        return 1;
-    else
-        return 0;
-}
-
-int isFull() {
-    if (top == MAX)
-        return 1;
-    else
-        return 0;
-}
-
-int peek() {
-    return stack[top];
-}
-
-int pop() {
-    int data;
-
-    if (!isEmpty()) {
-        data = stack[top];
-        top = top - 1;
-        return data;
+void moveDiskSocles(struct ArrayStack *socleSrc, struct ArrayStack *socleDest) {
+    int socle1Top = pop(socleSrc);
+    int socle2Top = pop(socleDest);
+ 
+    if (socle1Top == -1) {
+        push(socleSrc, socle2Top);
+    } else if (socle2Top == -1) {
+        push(socleDest, socle1Top);
+    } else if (socle1Top > socle2Top) {
+        push(socleSrc, socle1Top);
+        push(socleSrc, socle2Top);
     } else {
-        printf("Could not retrieve data, Stack is empty.\n");
+        push(socleDest, socle2Top);
+        push(socleDest, socle1Top);
     }
 }
-
-int push(int data) {
-    if (!isFull()) {
-        top = top + 1;
-        stack[top] = data;
-    } else {
-        printf("Could not insert data, Stack is full.\n");
+ 
+void tourHanoi(int nbDisque, struct ArrayStack *socle0, struct ArrayStack *socle1, struct ArrayStack *socle2) {
+    int i;
+    int nbMoveTotal;
+ 
+    nbMoveTotal = (nbDisque * nbDisque) - 1;
+ 
+    for (i = nbDisque; i >= 1; i--) {
+        push(socle0, i);
+    }
+ 
+    for (i = 1; i <= nbMoveTotal; i++) {
+        if (i % 3 == 1) {
+            moveDiskSocles(socle0, socle2);
+            nbMoves++;
+        } else if (i % 3 == 2) {
+            moveDiskSocles(socle0, socle1);
+            nbMoves++;
+        } else if (i % 3 == 0) {
+            moveDiskSocles(socle1, socle2);
+            nbMoves++;
+        }
     }
 }
+ 
 
-int main()
-{
-    // push items on to the stack
-    push(3);
-    push(5);
-    push(7);
-    push(17);
+void main() {
+    printf("Saissisez le nombre d'etages: ");
+    int nbEtages = 0;
+    scanf("%i", &nbEtages);
 
-    printf("Element at top of the stack: %d\n", peek());
-    printf("Elements: \n");
+    struct ArrayStack *socles[3];
 
-    // print stack data
-    while (!isEmpty())
-    {
-        int data = pop();
-        printf("%d\n", data);
-    }
+    socles[0] = init(nbEtages);
+    socles[1] = init(nbEtages);
+    socles[2] = init(nbEtages);
 
-    printf("Stack full: %s\n", isFull() ? "true" : "false");
-    printf("Stack empty: %s\n", isEmpty() ? "true" : "false");
-    return 0;
+    tourHanoi(nbEtages, socles[0], socles[1], socles[2]);
+
+    printf("%d", nbMoves);
 }
