@@ -70,3 +70,12 @@ int main(int argc, char* argv[]){
 
 Pour compiler:\
 gcc ./main.c -o programme.exe -L. -lAddition
+
+## La queue
+
+-   Type: F.I.F.O
+-   Acces: Devant (front), derierre (back)
+-   Fonctionnalites:
+-   -   Enfiler (push) (frontIndex + count++) % length ; (frontIndex + 1) % length; count--;
+-   -   Depiler (pop)
+-   -   Compte (size)
