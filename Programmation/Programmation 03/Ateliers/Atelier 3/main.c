@@ -5,51 +5,53 @@
 #include <stdlib.h>
 #include "MD5.h"
 
-void convertToString(char* outStr, int length){
-  char str[length];
-  for(int i=0; i < length; ++i){
-    outStr[i] = str[i];
-  }
-}
-
 int main(int argc, char* argv[]) {
-  char nbHasher[255] = "7f138a09169b250e9dcb378140907378";
   char messageSecret[] = "ac";
-  char messageUser[] = {'a', 'b', 0};
-  int cmpValue;
+  char messageUser[3] = {0, 0};
   int isCracked = 0;
-  int lenght = 3;
 
-  //MD5_CTX context;
-  //MD5Init(&context);
+  int hex = 16;
+  int dec = 10;
+  char hashdaon[255] = "7f138a09169b250e9dcb378140907378";
+  char hash[255] = "123abc";
+  char* end;
+  int hashDecInt;
+  char hashDecChar[255];
+ 
+  // Convert input hash hex to dec
+  hashDecInt = strtol(hash, &end, hex); // Copy hex to dec into a int
+  sprintf(hashDecChar, "%ld", hashDecInt); // Copy said int into a char array
+
+  //printf("%s", hashDecChar);
+
+  MD5_CTX context;
+  MD5Init(&context);
+
   printf("Message: ");
-  //char message[255];
-  //scanf("%s", message);
-  //MD5Update(&context, (unsigned char*)message, (unsigned int)strlen(message));
-  //printf("MD5: ");
-  //unsigned char digest[16];
-  //MD5Final(&context, digest);
-  //for (unsigned char i = 0; i < 16; i++)
-  //printf("%02x", digest[i]);
-  while (isCracked != 1)
-  {
-    cmpValue = strcmp(messageUser, messageSecret);
-    if (cmpValue == 0)
-    {
-      printf("Pareil");
-      isCracked = 1;
-    } else {
-      printf("pas pareil\n");
-      for (size_t i = 0; i < 255; i++)
-      {
-        messageUser[i]++;
-      }
-      
-    }
-  }
-  
-  
+  char message[255];
+  scanf("%s", message);
+  MD5Update(&context, (unsigned char*)message, (unsigned int)strlen(message));
 
+  printf("MD5: ");
+  unsigned char digest[16];
+  MD5Final(&context, digest);
+  for (unsigned char i = 0; i < 16; i++)
+    printf("%c", digest[i]);
+
+  MD5_CTX context2;
+  MD5Init(&context2);
+
+  MD5Update(&context2, (unsigned char *)hash, (unsigned int)strlen(hash));
+  unsigned char digest2[16];
+  MD5Final(&context2, digest2);
+  //for (unsigned char i = 0; i < 16; i++)
+    //printf("%02x", digest2[i]);
+
+  if(1==2){
+    printf("%s","salut");
+  } else {
+    printf("%s","non");
+  }
   
   return 0;
 }

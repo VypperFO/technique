@@ -65,6 +65,11 @@ SALUT --(translation)--> 100011101101 --(data compression)--> 10101101 --(encryp
 
 ![image](./images/error.png)
 
+### Network Layer
+- Logical Addressing 
+- Path determination
+- Routing
+
 ## Suports réseau:
 
 Trois types de supports pour la connexion entre péripherique
