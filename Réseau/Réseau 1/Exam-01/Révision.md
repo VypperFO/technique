@@ -108,3 +108,5 @@ Trois types de supports pour la connexion entre péripherique
 -   WAN : réseau étendu dans un vaste territoire (ville, municipalité)
     -   WAN est fait de plusieurs LAN
 -   Internet : réseau de WAN (*LAN->*WAN->Internet)
+
+## Liaison de donnees
