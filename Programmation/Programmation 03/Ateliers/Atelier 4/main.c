@@ -12,28 +12,39 @@
 ///\brief Déterminer s'il s'agit d'un opérateur.
 ///\param term Terme.
 ///\return S'il s'agit d'un opérateur.
-bool isOperator(char* term) {
-  /// TODO: Implémentation.
+bool isOperator(char *term)
+{
+  if (strcmp(*term, "(") == 0 || strcmp(term, ")") == 0 || strcmp(term, "+") == 0 || strcmp(term, "-") == 0 || strcmp(term, "*") == 0 || strcmp(term, "/") == 0 || strcmp(term, "%") == 0)
+  {
+    return true;
+  }
+  return false;
 }
 
 ///\brief Obtention de la priorité d'un opérateur.
 ///\param op Opérateur.
 ///\return Priorité de l'opérateur.
-unsigned char getPriority(char* op) {
-  /// TODO: Implémentation.
+unsigned char getPriority(char *op)
+{
+  if (isOperator(op))
+  {
+    return "t";
+  }
 }
 
 ///\brief Transformation d'une expression infixe en expression postfixe.
 ///\param infixExpression Expression infixe.
 ///\return Expression postfixe.
-struct StringArrayQueue* infixToPostfix(struct StringArrayQueue* infixExpression) {
+struct StringArrayQueue *infixToPostfix(struct StringArrayQueue *infixExpression)
+{
   /// TODO: Implémentation.
 }
 
 ///\brief Calcul du résultat d'un expression postfixe.
 ///\param postfixExpression Expression postfixe.
 ///\return Résultat de l'expression.
-int postfixToResult(struct StringArrayQueue* postfixExpression) {
+int postfixToResult(struct StringArrayQueue *postfixExpression)
+{
   /// TODO: Implémentation.
 }
 
@@ -41,7 +52,8 @@ int postfixToResult(struct StringArrayQueue* postfixExpression) {
 ///\param argc Nombre d'arguments.
 ///\param argv Arguments.
 ///\return Code de fin de programme.
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[])
+{
   struct StringArrayQueue infixExpression;
   StringArrayQueueInit(&infixExpression, 11);
 
@@ -58,13 +70,16 @@ int main(int argc, char* argv[]) {
   StringArrayQueuePush(&infixExpression, "+");
   StringArrayQueuePush(&infixExpression, "11");
 
-  for (unsigned char i = 0; i < StringArrayQueueSize(&infixExpression); i++){
+  for (unsigned char i = 0; i < StringArrayQueueSize(&infixExpression); i++)
+  {
     printf("%s", StringArrayQueueFront(&infixExpression));
     char *tmpFront = StringArrayQueueFront(&infixExpression);
     StringArrayQueuePop(&infixExpression);
     StringArrayQueuePush(&infixExpression, tmpFront);
   }
-    /// TODO: Implémentation.
+  /// TODO: Implémentation.
 
-    return 0;
+  char myArg = "(";
+  isOperator(&myArg);
+  return 0;
 }
