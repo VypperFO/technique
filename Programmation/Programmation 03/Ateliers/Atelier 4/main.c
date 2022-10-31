@@ -6,29 +6,44 @@
 #include <string.h>
 #include <stdbool.h>
 
-//#include "StringArrayStack.h"
+#include "ArrayStack.h"
 #include "StringArrayQueue.h"
 
 ///\brief Déterminer s'il s'agit d'un opérateur.
 ///\param term Terme.
 ///\return S'il s'agit d'un opérateur.
-bool isOperator(char *term)
+bool isOperator(char term)
 {
-  if (strcmp(*term, "(") == 0 || strcmp(term, ")") == 0 || strcmp(term, "+") == 0 || strcmp(term, "-") == 0 || strcmp(term, "*") == 0 || strcmp(term, "/") == 0 || strcmp(term, "%") == 0)
+  if (term == '%' || term == '*' || term == '/' || term == '+' || term == '-' || term == '(' || term == ')')
   {
     return true;
   }
-  return false;
+  else
+  {
+    return false;
+  }
 }
 
 ///\brief Obtention de la priorité d'un opérateur.
 ///\param op Opérateur.
 ///\return Priorité de l'opérateur.
-unsigned char getPriority(char *op)
+unsigned char getPriority(char op)
 {
-  if (isOperator(op))
+  if (op == '(' || op == ')')
   {
-    return "t";
+    return (3);
+  }
+  else if (op == '*' || op == '/' || op == '%')
+  {
+    return (2);
+  }
+  else if (op == '+' || op == '-')
+  {
+    return (1);
+  }
+  else
+  {
+    return (0);
   }
 }
 
@@ -37,7 +52,38 @@ unsigned char getPriority(char *op)
 ///\return Expression postfixe.
 struct StringArrayQueue *infixToPostfix(struct StringArrayQueue *infixExpression)
 {
-  /// TODO: Implémentation.
+  struct StringArrayQueue *postFixQueue;
+  struct ArrayStack *opStack;
+
+  StringArrayQueueInit(postFixQueue, 255);
+  opStack = init(255);
+
+  for (size_t i = 0; i < sizeof(infixExpression); i++)
+  {
+    char lastOP = StringArrayQueueFront(infixExpression);
+    if (!isOperator(lastOP))
+    {
+      StringArrayQueuePush(postFixQueue, lastOP);
+    }
+    else if (lastOP == '(')
+      push(opStack, lastOP);
+    else if (lastOP == ')')
+    {
+      char op;
+      do
+      {
+        op = pop(opStack);
+        StringArrayQueuePush(postFixQueue, op);
+      } while (op != '(');
+    }
+    else
+    {
+      while (getPriority(pop(opStack)) >= getPriority(peek(opStack)))
+      {
+        // StringArrayQueuePush();
+      }
+    }
+  }
 }
 
 ///\brief Calcul du résultat d'un expression postfixe.
@@ -79,7 +125,5 @@ int main(int argc, char *argv[])
   }
   /// TODO: Implémentation.
 
-  char myArg = "(";
-  isOperator(&myArg);
   return 0;
 }
