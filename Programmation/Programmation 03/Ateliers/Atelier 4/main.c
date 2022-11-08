@@ -12,9 +12,9 @@
 ///\brief Déterminer s'il s'agit d'un opérateur.
 ///\param term Terme.
 ///\return S'il s'agit d'un opérateur.
-bool isOperator(char term)
+bool isOperator(char *term)
 {
-  if (term == '%' || term == '*' || term == '/' || term == '+' || term == '-' || term == '(' || term == ')')
+  if (strcmp(term, "(") == 0 || strcmp(term, ")") == 0 || strcmp(term, "+") == 0 || strcmp(term, "-") == 0 || strcmp(term, "*") == 0 || strcmp(term, "/") == 0 || strcmp(term, "%") == 0)
   {
     return true;
   }
@@ -27,17 +27,17 @@ bool isOperator(char term)
 ///\brief Obtention de la priorité d'un opérateur.
 ///\param op Opérateur.
 ///\return Priorité de l'opérateur.
-unsigned char getPriority(char op)
+unsigned char getPriority(char *op)
 {
-  if (op == '(' || op == ')')
+  if (strcmp(op, "(") == 0 || strcmp(op, ")") == 0)
   {
     return (3);
   }
-  else if (op == '*' || op == '/' || op == '%')
+  else if (strcmp(op, "*") == 0 || strcmp(op, "/") == 0 || strcmp(op, "%") == 0)
   {
     return (2);
   }
-  else if (op == '+' || op == '-')
+  else if (strcmp(op, "+") == 0 || strcmp(op, "-") == 0)
   {
     return (1);
   }
