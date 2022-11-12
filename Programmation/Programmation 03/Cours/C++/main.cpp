@@ -8,15 +8,18 @@
 
 #include <iostream>
 #include <string>
-#include "ArrayStack.cpp"
+#include "Queue.hpp"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-  ArrayStack<double> pileEntiers(5);
-  pileEntiers.push(42);
+  Queue<int> *fileEntiers = new Queue<int>();
+  fileEntiers->push(42);
+  fileEntiers->push(32);
+  fileEntiers->pop();
+  fileEntiers->pop();
 
-  cout << "salut" << endl;
+  delete fileEntiers;
   return 0;
 }
