@@ -14,9 +14,17 @@ public:
     count = 0;
   }
 
+  ~Queue()
+  {
+    for (size_t i = 0; i < count; i++)
+    {
+      pop();
+    }
+  }
+
   void push(T data)
   {
-    if (last) // Last == nullptr **ASK WHAT THIS DOES**
+    if (last)
     {
       last->next = new SLNode<T>(data);
       last = last->next;
@@ -50,7 +58,7 @@ public:
     return NULL;
   }
 
-  /// @brief Derrière 
+  /// @brief Derrière
   /// @return Donnée au derrière
   T back()
   {
@@ -65,7 +73,8 @@ public:
   {
     size_t counter = 0;
     SLNode<T> *runner = first;
-    while (runner){
+    while (runner)
+    {
       counter++;
       runner = runner->next;
     }
