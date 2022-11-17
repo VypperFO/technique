@@ -14,12 +14,10 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-  Queue<int> *fileEntiers = new Queue<int>();
-  fileEntiers->push(42);
-  fileEntiers->push(32);
-  fileEntiers->pop();
-  fileEntiers->pop();
+  Queue<char> *charQueue = new Queue<char>();
+  charQueue->push(9);
 
-  delete fileEntiers;
+  delete charQueue;
+  
   return 0;
 }

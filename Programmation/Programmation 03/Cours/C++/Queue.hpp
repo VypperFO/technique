@@ -32,7 +32,7 @@ public:
   {
     if (last) // Last == nullptr **ASK WHAT THIS DOES**
     {
-      SLNode<T> *toDelete = first; // Temp var points to the first
+      SLNode<T> *toDelete = first; // Temp var points to the first element
       first = toDelete->next;      // First equals the pointer of todelete.next (first)
       delete toDelete;             // free toDelete
       count--;                     // Decrement the total count
@@ -41,19 +41,35 @@ public:
     }
   }
 
+  /// @brief Devant
+  /// @return Donnée au devant
   T front()
   {
     if (first) // **ASK WHAT THIS DOES**
-    {
       return first->data;
-    }
-    return "";
+    return NULL;
   }
 
+  /// @brief Derrière 
+  /// @return Donnée au derrière
   T back()
   {
+    if (last)
+      return last->data;
+    return NULL;
   }
+
+  /// @brief Compte
+  /// @return Nombre de données
   size_t size()
   {
+    size_t counter = 0;
+    SLNode<T> *runner = first;
+    while (runner){
+      counter++;
+      runner = runner->next;
+    }
+
+    return counter;
   }
 };
