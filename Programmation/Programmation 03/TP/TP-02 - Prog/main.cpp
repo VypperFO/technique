@@ -1,17 +1,16 @@
 #include "Application.hpp"
 #include "MazeSolver.hpp"
-#include "Stack.hpp"
-#include <iostream>
-#include "Position.hpp"
+//#include "Stack.hpp"
+//#include "Position.hpp"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
-	// Application::getInstance()->addWindow(new MazeSolver(new Maze(3)));
-	// Application::getInstance()->start();
+	Application::getInstance()->addWindow(new MazeSolver(new Maze(1)));
+	Application::getInstance()->start();
 
-	Position *pos01 = new Position(1, 4);
+	/*Position *pos01 = new Position(1, 4);
 	Position *pos02 = new Position(2, 4);
 	Position *pos03 = new Position(3, 4);
 
@@ -27,7 +26,7 @@ int main(int argc, char *argv[])
 
 	stack.display();
 
-	/*for (size_t i = 0; i < 4; i++)
+	for (size_t i = 0; i < 4; i++)
 	{
 		cout << pos.dir[i]
 			 << endl;

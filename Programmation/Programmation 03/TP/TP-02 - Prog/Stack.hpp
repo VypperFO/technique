@@ -65,7 +65,7 @@ public:
 
   ///\brief Haut de la pile
   ///\return La donnee du haut de la pile
-  T top()
+  T *top()
   {
     if (first != nullptr)
     {
