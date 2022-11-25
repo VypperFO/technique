@@ -1,13 +1,21 @@
+///\file Stack.hpp
+///\brief Ce fichier contient l'implementation de la pile/
+///\author Felix-Olivier Latulippe (felixlatulip@gmail.com)
+
 #include "SLNode.hpp"
 #include <iostream>
 
 using namespace std;
 
 template <typename T>
+
+///\class Stack
+///\brief Classe de la pile.
+///\tparam T
 class Stack
 {
-  SLNode<T> *first;
-  size_t count;
+  SLNode<T> *first; ///< Le dessus de la pile
+  size_t count;     ///< Le nombre de noeuds
 
 public:
   Stack()
@@ -24,14 +32,17 @@ public:
     }
   }
 
+  ///\brief Methode pour empiler
+  ///\param data La donnee a empiler
   void push(T data)
   {
-    SLNode<T> *newNode = new SLNode<T>(data);
+    SLNode<T> *newNode = new SLNode<T>(data); ///< Nouveau noeud
     newNode->next = first;
     first = newNode;
     count++;
   }
 
+  ///\brief Methode pour depiler
   void pop()
   {
     if (first != nullptr)
@@ -45,9 +56,27 @@ public:
     }
   }
 
+  ///\brief Compte de la pile
+  ///\return Nombre de données
+  size_t size()
+  {
+    return count;
+  }
+
+  ///\brief Haut de la pile
+  ///\return La donnee du haut de la pile
+  T top()
+  {
+    if (first != nullptr)
+    {
+      return first->data;
+    }
+  }
+
+  ///\brief Methode pour afficher tout les elements de la pile
   void display()
   {
-    SLNode<T> *ptr;
+    SLNode<T> *ptr; ///< Pointeur du top
 
     if (first != nullptr)
     {
@@ -58,14 +87,7 @@ public:
         cout << ptr->data << " ";
         ptr = ptr->next;
       }
-      // cout << endl;
+      cout << endl;
     }
-  }
-
-  /// @brief Compte
-  /// @return Nombre de données
-  size_t size()
-  {
-    return count;
   }
 };

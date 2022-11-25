@@ -17,7 +17,7 @@
         "-lmingw32",
         "-lSDL2main",
         "-lSDL2",
-        "-mwindows"
+        //"-mwindows"
       ],
       "options": {
         "cwd": "C:/msys64/mingw64/bin",
