@@ -34,7 +34,7 @@ public:
 
   ///\brief Methode pour empiler
   ///\param data La donnee a empiler
-  void push(T data)
+  void push(T *data)
   {
     SLNode<T> *newNode = new SLNode<T>(data); ///< Nouveau noeud
     newNode->next = first;

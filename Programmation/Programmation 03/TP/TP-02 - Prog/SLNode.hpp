@@ -9,10 +9,10 @@ template <typename T>
 class SLNode
 {
 public:
-  T data;          ///< Donnee du noeud
+  T *data;         ///< Donnee du noeud
   SLNode<T> *next; ///< Adresse du prochain noeud
 
-  SLNode(T data, SLNode<T> *next = nullptr)
+  SLNode(T *data, SLNode<T> *next = nullptr)
   {
     this->data = data;
     this->next = next;
