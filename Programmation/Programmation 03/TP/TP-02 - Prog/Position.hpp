@@ -5,16 +5,16 @@ class Position
 public:
     size_t x;
     size_t y;
-    bool dir[4];
+    bool dir[4] = {false, false, false, false};
 
-    Position(size_t x, size_t y, bool dir[4])
+    Position(size_t x, size_t y)
     {
         this->x = x;
         this->y = y;
+    }
 
-        for (size_t i = 0; i < 4; i++)
-        {
-            dir[i] = false;
-        }
+    void setDir(bool direction[])
+    {
+        dir = direction;
     }
 };
