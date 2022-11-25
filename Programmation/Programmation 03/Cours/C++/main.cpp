@@ -8,44 +8,31 @@
 
 #include <iostream>
 #include <string>
-#include "Queue.hpp"
+#include "./binary_tree/BSTree.hpp"
 
 using namespace std;
 
-struct Skydiver
-{
-  string firstName, lastName;
-
-  Skydiver(string firstName, string lastName)
-  {
-    this->firstName = firstName;
-    this->lastName = lastName;
-  }
-};
-
 int main(int argc, char *argv[])
 {
-  Skydiver *skydiverA = new Skydiver("patrick", "nigger");
-  Skydiver *skydiverB = new Skydiver("patrick", "lebeaunigger");
+  BSTree<int> *intSearchTree = new BSTree<int>();
 
-  Queue<Skydiver *> *skydiverQueue = new Queue<Skydiver *>();
+  intSearchTree->add(42);
+  intSearchTree->add(7);
+  intSearchTree->add(666);
+  intSearchTree->add(404);
+  intSearchTree->add(-42);
+  intSearchTree->add(42);
 
-  skydiverQueue->push(skydiverA);
-  skydiverQueue->push(skydiverB);
+  if (intSearchTree->search(-42))
+  {
+    cout << "Present" << endl;
+  }
+  else
+  {
+    cout << "Absent" << endl;
+  }
 
-  cout << "Devant: " << skydiverQueue->front()->firstName << " " << skydiverQueue->front()->lastName << endl;
-  cout << "Derriere: " << skydiverQueue->back()->firstName << " " << skydiverQueue->back()->lastName << endl;
-  cout << "Compte: " << skydiverQueue->size() << endl;
-  cout << "Defiler" << endl;
-  skydiverQueue->pop();
-  cout << "Devant: " << skydiverQueue->front()->firstName << " " << skydiverQueue->front()->lastName << endl;
-  cout << "Derriere: " << skydiverQueue->back()->firstName << " " << skydiverQueue->back()->lastName << endl;
-  cout << "Compte: " << skydiverQueue->size() << endl;
-
-  delete skydiverQueue;
-
-  delete skydiverA;
-  delete skydiverB;
+  delete intSearchTree;
 
   return 0;
 }
