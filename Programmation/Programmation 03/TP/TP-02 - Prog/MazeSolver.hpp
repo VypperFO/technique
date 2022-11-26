@@ -33,7 +33,6 @@ public:
 	void onUpdate()
 	{
 		/// TODO: Avancer d'un pas.
-		// possibleDirection(path->top());
 		int x = path->top()->x;
 		int y = path->top()->y;
 
@@ -57,20 +56,21 @@ public:
 			else if (path->top()->dir[2])
 			{
 				x--;
-				provenance = 2;
+				provenance = 3;
 				path->top()->dir[2] = false;
 			}
 			else if (path->top()->dir[3])
 			{
 				x++;
-				provenance = 3;
+				provenance = 2;
 				path->top()->dir[3] = false;
 			}
 
 			Position *pos = new Position(x, y);
 			possibleDirection(pos);
-			// pos->dir[provenance] = false;
+			pos->dir[provenance] = false;
 			path->push(pos);
+			path->top()->dir[provenance] = false;
 		}
 		else if (nbDirection(path->top()) > 1)
 		{
@@ -134,15 +134,15 @@ public:
 		{
 			pos->dir[0] = true;
 		}
-		else if (maze->getSquare(pos->x, pos->y - 1) == Square::WAY)
+		if (maze->getSquare(pos->x, pos->y - 1) == Square::WAY)
 		{
 			pos->dir[1] = true;
 		}
-		else if (maze->getSquare(pos->x - 1, pos->y) == Square::WAY)
+		if (maze->getSquare(pos->x - 1, pos->y) == Square::WAY)
 		{
 			pos->dir[2] = true;
 		}
-		else if (maze->getSquare(pos->x + 1, pos->y) == Square::WAY)
+		if (maze->getSquare(pos->x + 1, pos->y) == Square::WAY)
 		{
 			pos->dir[3] = true;
 		}
