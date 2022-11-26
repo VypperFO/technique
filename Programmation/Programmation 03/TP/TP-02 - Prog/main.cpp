@@ -7,7 +7,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-	Application::getInstance()->addWindow(new MazeSolver(new Maze(1)));
+	Application::getInstance()->addWindow(new MazeSolver(new Maze(2)));
 	Application::getInstance()->start();
 
 	/*Position *pos01 = new Position(1, 4);
@@ -25,11 +25,6 @@ int main(int argc, char *argv[])
 	stack.push(pos03);
 
 	stack.display();
-
-	for (size_t i = 0; i < 4; i++)
-	{
-		cout << pos.dir[i]
-			 << endl;
-	}*/
+*/
 	return 0;
 }

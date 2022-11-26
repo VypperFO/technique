@@ -76,9 +76,9 @@ public:
 		{
 			cout << "<1" << endl;
 		}
-		else
+		else if (nbDirection(path->top()) == 0 && maze->getSquare(path->top()->x, path->top()->y) != Square::EXIT)
 		{
-			// path->pop();
+			path->pop();
 		}
 	}
 
@@ -130,19 +130,19 @@ public:
 
 	Position *possibleDirection(Position *pos)
 	{
-		if (maze->getSquare(pos->x, pos->y + 1) == Square::WAY)
+		if (maze->getSquare(pos->x, pos->y + 1) == Square::WAY || maze->getSquare(pos->x, pos->y + 1) == Square::EXIT)
 		{
 			pos->dir[0] = true;
 		}
-		if (maze->getSquare(pos->x, pos->y - 1) == Square::WAY)
+		if (maze->getSquare(pos->x, pos->y - 1) == Square::WAY || maze->getSquare(pos->x, pos->y - 1) == Square::EXIT)
 		{
 			pos->dir[1] = true;
 		}
-		if (maze->getSquare(pos->x - 1, pos->y) == Square::WAY)
+		if (maze->getSquare(pos->x - 1, pos->y) == Square::WAY || maze->getSquare(pos->x - 1, pos->y) == Square::EXIT)
 		{
 			pos->dir[2] = true;
 		}
-		if (maze->getSquare(pos->x + 1, pos->y) == Square::WAY)
+		if (maze->getSquare(pos->x + 1, pos->y) == Square::WAY || maze->getSquare(pos->x + 1, pos->y) == Square::EXIT)
 		{
 			pos->dir[3] = true;
 		}
