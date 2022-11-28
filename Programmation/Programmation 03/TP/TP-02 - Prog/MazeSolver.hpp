@@ -75,34 +75,36 @@ public:
 		}
 		else if (nbDirection(path->top()) > 1)
 		{
-			cout << "<1" << endl;
+			cout << "plus de 1" << endl;
 
 			int provenance = -1;
-			int empreuter = -1;
+			int empreuter = randomDirection(path->top());
 
-			if (path->top()->dir[0])
+			switch (empreuter)
 			{
+			case 0:
 				y++;
 				provenance = 1;
-				empreuter = 0;
-			}
-			if (path->top()->dir[1])
-			{
+				path->top()->dir[0] = false;
+				break;
+			case 1:
 				y--;
 				provenance = 0;
-				empreuter = 1;
-			}
-			if (path->top()->dir[2])
-			{
+				path->top()->dir[1] = false;
+				break;
+			case 2:
 				x--;
 				provenance = 3;
-				empreuter = 2;
-			}
-			if (path->top()->dir[3])
-			{
+				path->top()->dir[2] = false;
+				break;
+			case 3:
 				x++;
 				provenance = 2;
-				empreuter = 3;
+				path->top()->dir[3] = false;
+				break;
+			default:
+				cout << "Erreur" << endl;
+				break;
 			}
 
 			Position *pos = new Position(x, y);
@@ -118,10 +120,6 @@ public:
 		else if (path->size() == 0)
 		{
 			cout << "Aucun chemin trouver" << endl;
-		}
-		else
-		{
-			cout << "Une erreur est survenue" << endl;
 		}
 	}
 
@@ -196,19 +194,22 @@ public:
 	int randomDirection(Position *pos)
 	{
 		int index = 0;
-		bool found;
+		bool found = false;
+		int nbDeRandom = 0;
 
-		while (found != true)
+		do
 		{
 			srand(time(0));			 // une seule fois dans tout le programme
 			int random = rand() % 4; // i = 0..3;
+			nbDeRandom++;
 
 			if (pos->dir[random])
 			{
 				found = true;
 				index = random;
 			}
-		}
+		} while (found != true);
+		cout << nbDeRandom << endl;
 
 		return index;
 	}
