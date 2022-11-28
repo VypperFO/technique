@@ -49,10 +49,10 @@ public:
     {
       first = first->next;
       count--;
-      // if (count)
-      //{
-      // first = nullptr;
-      //}
+      if (count == 0)
+      {
+        first = nullptr;
+      }
     }
   }
 

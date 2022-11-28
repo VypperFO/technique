@@ -33,80 +33,78 @@ public:
 	///\brief Méthode permettant d'effectuer un déplacement
 	void onUpdate()
 	{
-		int x = path->top()->x; ///< Coordonnée du nouveau "x"
-		int y = path->top()->y; ///< Coordonnée du nouveau "y"
-		int provenance = -1;	///< Provenance de la dernière position
-
-		if (nbDirection(path->top()) == 1)
+		if (path->size() != 0)
 		{
-			if (path->top()->dir[0])
-			{
-				y++;
-				provenance = 1;
-				path->top()->dir[0] = false;
-			}
-			else if (path->top()->dir[1])
-			{
-				y--;
-				provenance = 0;
-				path->top()->dir[1] = false;
-			}
-			else if (path->top()->dir[2])
-			{
-				x--;
-				provenance = 3;
-				path->top()->dir[2] = false;
-			}
-			else if (path->top()->dir[3])
-			{
-				x++;
-				provenance = 2;
-				path->top()->dir[3] = false;
-			}
+			int x = path->top()->x; ///< Coordonnée du nouveau "x"
+			int y = path->top()->y; ///< Coordonnée du nouveau "y"
+			int provenance = -1;	///< Provenance de la dernière position
 
-			pushPosition(provenance, x, y);
-		}
-		else if (nbDirection(path->top()) > 1)
-		{
-			int empreuter = randomDirection(path->top()); ///< Position aléatoire à empreuter
-
-			switch (empreuter)
+			if (nbDirection(path->top()) == 1)
 			{
-			case 0:
-				y++;
-				provenance = 1;
-				path->top()->dir[0] = false;
-				break;
-			case 1:
-				y--;
-				provenance = 0;
-				path->top()->dir[1] = false;
-				break;
-			case 2:
-				x--;
-				provenance = 3;
-				path->top()->dir[2] = false;
-				break;
-			case 3:
-				x++;
-				provenance = 2;
-				path->top()->dir[3] = false;
-				break;
-			default:
-				cout << "Erreur" << endl;
-				break;
+				if (path->top()->dir[0])
+				{
+					y++;
+					provenance = 1;
+					path->top()->dir[0] = false;
+				}
+				else if (path->top()->dir[1])
+				{
+					y--;
+					provenance = 0;
+					path->top()->dir[1] = false;
+				}
+				else if (path->top()->dir[2])
+				{
+					x--;
+					provenance = 3;
+					path->top()->dir[2] = false;
+				}
+				else if (path->top()->dir[3])
+				{
+					x++;
+					provenance = 2;
+					path->top()->dir[3] = false;
+				}
+
+				pushPosition(provenance, x, y);
 			}
+			else if (nbDirection(path->top()) > 1)
+			{
+				int empreuter = randomDirection(path->top()); ///< Position aléatoire à empreuter
 
-			pushPosition(provenance, x, y);
-		}
-		else if (nbDirection(path->top()) == 0 && maze->getSquare(path->top()->x, path->top()->y) != Square::EXIT)
-		{
-			path->pop();
-		}
+				switch (empreuter)
+				{
+				case 0:
+					y++;
+					provenance = 1;
+					path->top()->dir[0] = false;
+					break;
+				case 1:
+					y--;
+					provenance = 0;
+					path->top()->dir[1] = false;
+					break;
+				case 2:
+					x--;
+					provenance = 3;
+					path->top()->dir[2] = false;
+					break;
+				case 3:
+					x++;
+					provenance = 2;
+					path->top()->dir[3] = false;
+					break;
+				default:
+					cout << "Erreur" << endl;
+					break;
+				}
 
-		else if (path->size() == 0)
-		{
-			cout << "Aucun chemin trouver" << endl;
+				pushPosition(provenance, x, y);
+			}
+			else if (nbDirection(path->top()) == 0 && maze->getSquare(path->top()->x, path->top()->y) != Square::EXIT)
+			{
+				path->pop();
+			}
 		}
 	}
 
@@ -121,7 +119,10 @@ public:
 			}
 		}
 
-		drawSquare(Square::PATH, path->top()->x, path->top()->y);
+		if (path->size() != 0)
+		{
+			drawSquare(Square::PATH, path->top()->x, path->top()->y);
+		}
 	}
 
 	///\brief Méthode pour trouver l'entrer du labyrinthe
