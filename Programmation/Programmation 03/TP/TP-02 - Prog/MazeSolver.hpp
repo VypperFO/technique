@@ -101,7 +101,7 @@ public:
 
 				pushPosition(provenance, x, y);
 			}
-			else if (nbDirection(path->top()) == 0 && maze->getSquare(path->top()->x, path->top()->y) != Square::EXIT)
+			else if (nbDirection(path->top()) == 0 /* && maze->getSquare(path->top()->x, path->top()->y) != Square::EXIT*/)
 			{
 				path->pop();
 			}

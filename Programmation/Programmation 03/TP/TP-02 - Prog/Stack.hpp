@@ -47,7 +47,9 @@ public:
   {
     if (first != nullptr)
     {
-      first = first->next;
+      SLNode<T> *toDelete = first;
+      first = toDelete->next;
+      delete toDelete;
       count--;
       if (count == 0)
       {
