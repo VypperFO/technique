@@ -72,22 +72,4 @@ public:
       return first->data;
     }
   }
-
-  ///\brief Methode pour afficher tout les elements de la pile
-  void display()
-  {
-    SLNode<T> *ptr; ///< Pointeur du top
-
-    if (first != nullptr)
-    {
-      ptr = first;
-      cout << "Stack elements are: ";
-      while (ptr != NULL)
-      {
-        cout << ptr->data << " ";
-        ptr = ptr->next;
-      }
-      cout << endl;
-    }
-  }
 };
