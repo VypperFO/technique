@@ -7,42 +7,35 @@
 #include "Position.hpp"
 #include <ctime>
 
-/// TODO: Inclusions.
-
 class MazeSolver : public Window
 {
 private:
 	Maze *maze;
 	Stack<Position> *path;
-	/// TODO: Déclarations.
 
 public:
 	MazeSolver(Maze *maze)
 	{
+		srand(time(0)); // une seule fois dans tout le programme
 		this->maze = maze;
 		path = new Stack<Position>();
 		findEntrance();
-		/// TODO: Instanciations.
 	}
 
 	~MazeSolver()
 	{
-		/// TODO: Libérations.
 		delete maze;
 		delete path;
 	}
 
 	void onUpdate()
 	{
-		/// TODO: Avancer d'un pas.
 		int x = path->top()->x;
 		int y = path->top()->y;
+		int provenance = -1;
 
 		if (nbDirection(path->top()) == 1)
 		{
-			cout << "1" << endl;
-			int provenance = -1;
-
 			if (path->top()->dir[0])
 			{
 				y++;
@@ -68,16 +61,10 @@ public:
 				path->top()->dir[3] = false;
 			}
 
-			Position *pos = new Position(x, y);
-			possibleDirection(pos);
-			pos->dir[provenance] = false;
-			path->push(pos);
+			pushPosition(provenance, x, y);
 		}
 		else if (nbDirection(path->top()) > 1)
 		{
-			cout << "plus de 1" << endl;
-
-			int provenance = -1;
 			int empreuter = randomDirection(path->top());
 
 			switch (empreuter)
@@ -107,10 +94,7 @@ public:
 				break;
 			}
 
-			Position *pos = new Position(x, y);
-			possibleDirection(pos);
-			pos->dir[provenance] = false;
-			path->push(pos);
+			pushPosition(provenance, x, y);
 		}
 		else if (nbDirection(path->top()) == 0 && maze->getSquare(path->top()->x, path->top()->y) != Square::EXIT)
 		{
@@ -134,8 +118,6 @@ public:
 		}
 
 		drawSquare(Square::PATH, path->top()->x, path->top()->y);
-
-		/// TODO: Afficher la position actuelle.
 	}
 
 	void findEntrance()
@@ -193,15 +175,13 @@ public:
 
 	int randomDirection(Position *pos)
 	{
+		int random;
 		int index = 0;
 		bool found = false;
-		int nbDeRandom = 0;
 
 		do
 		{
-			srand(time(0));			 // une seule fois dans tout le programme
-			int random = rand() % 4; // i = 0..3;
-			nbDeRandom++;
+			random = rand() % 4;
 
 			if (pos->dir[random])
 			{
@@ -209,9 +189,16 @@ public:
 				index = random;
 			}
 		} while (found != true);
-		cout << nbDeRandom << endl;
 
 		return index;
+	}
+
+	void pushPosition(int provenance, int x, int y)
+	{
+		Position *pos = new Position(x, y);
+		possibleDirection(pos);
+		pos->dir[provenance] = false;
+		path->push(pos);
 	}
 };
 
