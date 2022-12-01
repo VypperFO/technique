@@ -12,7 +12,7 @@
 class MazeSolver : public Window
 {
 private:
-	Maze *maze;			   ///< Le labyrinthe
+	Maze *maze;						 ///< Le labyrinthe
 	Stack<Position> *path; ///< Stack du chemin
 
 public:
@@ -20,7 +20,7 @@ public:
 	{
 		this->maze = maze;
 		path = new Stack<Position>(); ///< Pile du chemin
-		srand(time(0));				  ///< Seed du random
+		srand(time(0));								///< Seed du random
 		findEntrance();
 	}
 
@@ -37,7 +37,7 @@ public:
 		{
 			int x = path->top()->x; ///< Coordonnée du nouveau "x"
 			int y = path->top()->y; ///< Coordonnée du nouveau "y"
-			int provenance = -1;	///< Provenance de la dernière position
+			int provenance = -1;		///< Provenance de la dernière position
 
 			if (nbDirection(path->top()) == 1)
 			{
@@ -190,9 +190,9 @@ public:
 	///\return Retourne une direction aléatoire
 	int randomDirection(Position *pos)
 	{
-		int random;	   ///< Un nombre aléatoire
+		int random;		 ///< Un nombre aléatoire
 		int index = 0; ///< Index de la direction aléatoire choisite
-		bool found;	   ///< Boolean pour savoir si la direction est possible
+		bool found;		 ///< Boolean pour savoir si la direction est possible
 
 		do
 		{
