@@ -1,21 +1,8 @@
-#include <cstdlib>
-#include <cstdio>
+#include <string>
 #include <iostream>
+#include <cstdio>
 
 using namespace std;
-
-int main(int argc, char const *argv[])
-{
-
-  /*
-  * Tant que la file de prioriter ne contient pas qu'une seule donnee:
-  - defiler les deux premieres donnees.
-  - creer un nouveau noeud avant comme prioriter la somme des prioriter des deux noeuds defiler
-  */
-  cout << "ta mere" << endl;
-
-  return 0;
-}
 
 void encode()
 {
@@ -23,4 +10,33 @@ void encode()
 
 void decode()
 {
+}
+
+int countChar(string str, char searchChar)
+{
+	int count = 0;
+
+	for (unsigned char i = 0; i < 255; i++)
+	{
+		if (str.at(i) == searchChar)
+		{
+			count++;
+		}
+	}
+
+	return count;
+}
+
+void census(string str)
+{
+	int count = 0;
+	for (int i = 0; (i = str.find(ch, i)) != string::npos; i++)
+	{
+		count++;
+	}
+}
+int main(int argc, char *argv[])
+{
+
+	return 0;
 }
