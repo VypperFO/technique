@@ -36,7 +36,6 @@ HuffmanNode *treeMaker(PriorityQueue<HuffmanNode *> huffQueue)
 		HuffmanNode *secondNode = new HuffmanNode(huffQueue.front()->data);
 		prioritySecondNode = huffQueue.frontPriority();
 		huffQueue.pop();
-
 		sumPriority = priorityFirstNode + prioritySecondNode;
 
 		HuffmanNode *newNode = new HuffmanNode(firstNode, secondNode);
