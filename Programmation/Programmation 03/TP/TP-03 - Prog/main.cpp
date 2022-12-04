@@ -3,12 +3,9 @@
 #include <cstdio>
 #include "PriorityQueue.hpp"
 #include "HuffmanNode.hpp"
+#include <queue>
 
 using namespace std;
-
-void encode()
-{
-}
 
 void decode()
 {
@@ -30,12 +27,13 @@ HuffmanNode *treeMaker(PriorityQueue<HuffmanNode *> huffQueue)
 
 	while (huffQueue.size() > 1)
 	{
-		HuffmanNode *firstNode = new HuffmanNode(huffQueue.front()->data);
+		HuffmanNode *firstNode = huffQueue.front();
 		priorityFirstNode = huffQueue.frontPriority();
 		huffQueue.pop();
-		HuffmanNode *secondNode = new HuffmanNode(huffQueue.front()->data);
+		HuffmanNode *secondNode = huffQueue.front();
 		prioritySecondNode = huffQueue.frontPriority();
 		huffQueue.pop();
+
 		sumPriority = priorityFirstNode + prioritySecondNode;
 
 		HuffmanNode *newNode = new HuffmanNode(firstNode, secondNode);
@@ -77,10 +75,58 @@ void census(string str)
 	// count++;
 	//}
 }
+
+// Print the array
+void printArray(int arr[], int n)
+{
+	int i;
+	for (i = 0; i < n; ++i)
+		cout << arr[i];
+
+	cout << "\n";
+}
+
+int isLeaf(HuffmanNode *root)
+{
+	return !(root->left) && !(root->right);
+}
+
+void printHCodes(HuffmanNode *root, int arr[], int top, queue<int> *encodingQueue)
+{
+	if (root->left)
+	{
+		arr[top] = 0;
+		encodingQueue->push(0);
+		printHCodes(root->left, arr, top + 1, encodingQueue);
+	}
+
+	if (root->right)
+	{
+		arr[top] = 1;
+		encodingQueue->push(1);
+		printHCodes(root->right, arr, top + 1, encodingQueue);
+	}
+	if (isLeaf(root))
+	{
+		cout << root->data << "  | ";
+		printArray(arr, top);
+	}
+}
+
+queue<int> *encode(HuffmanNode *root)
+{
+	queue<int> *encodingQueue = new queue<int>();
+	int arr[50];
+	printHCodes(root, arr, 0, encodingQueue);
+
+	return encodingQueue;
+}
+
 int main(int argc, char *argv[])
 {
 	PriorityQueue<HuffmanNode *> myQueue = PriorityQueue<HuffmanNode *>();
 	HuffmanNode *root;
+	queue<int> *myEncodingQueue = new queue<int>();
 
 	HuffmanNode *huffA = new HuffmanNode('a');
 	HuffmanNode *huffC = new HuffmanNode('c');
@@ -99,6 +145,14 @@ int main(int argc, char *argv[])
 	myQueue.push(huffNothing, 1);
 
 	root = treeMaker(myQueue);
+
+	myEncodingQueue = encode(root);
+
+	for (size_t i = 0; i < myEncodingQueue->size(); i++)
+	{
+		cout << myEncodingQueue->front() << endl;
+		myEncodingQueue->pop();
+	}
 
 	delete huffA;
 	delete huffC;
