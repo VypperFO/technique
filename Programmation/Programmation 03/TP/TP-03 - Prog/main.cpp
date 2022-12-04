@@ -22,8 +22,29 @@ void exporting()
 {
 }
 
-void treeMaker()
+HuffmanNode *treeMaker(PriorityQueue<HuffmanNode *> huffQueue)
 {
+	int priorityFirstNode = 0;
+	int prioritySecondNode = 0;
+	int sumPriority = 0;
+
+	while (huffQueue.size() > 1)
+	{
+		HuffmanNode *firstNode = new HuffmanNode(huffQueue.front()->data);
+		priorityFirstNode = huffQueue.frontPriority();
+		huffQueue.pop();
+		HuffmanNode *secondNode = new HuffmanNode(huffQueue.front()->data);
+		prioritySecondNode = huffQueue.frontPriority();
+		huffQueue.pop();
+
+		sumPriority = priorityFirstNode + prioritySecondNode;
+
+		HuffmanNode *newNode = new HuffmanNode(firstNode, secondNode);
+
+		huffQueue.push(newNode, sumPriority);
+	}
+
+	return huffQueue.front();
 }
 
 void seedPlanter()
@@ -60,14 +81,31 @@ void census(string str)
 int main(int argc, char *argv[])
 {
 	PriorityQueue<HuffmanNode *> myQueue = PriorityQueue<HuffmanNode *>();
+	HuffmanNode *root;
 
-	HuffmanNode *huff01 = new HuffmanNode('p');
+	HuffmanNode *huffA = new HuffmanNode('a');
+	HuffmanNode *huffC = new HuffmanNode('c');
+	HuffmanNode *huffE = new HuffmanNode('e');
+	HuffmanNode *huffH = new HuffmanNode('h');
+	HuffmanNode *huffR = new HuffmanNode('r');
+	HuffmanNode *huffS = new HuffmanNode('s');
+	HuffmanNode *huffNothing = new HuffmanNode(' ');
 
-	myQueue.push(huff01, 1);
+	myQueue.push(huffA, 1);
+	myQueue.push(huffC, 2);
+	myQueue.push(huffE, 4);
+	myQueue.push(huffH, 1);
+	myQueue.push(huffR, 1);
+	myQueue.push(huffS, 6);
+	myQueue.push(huffNothing, 1);
 
-	cout << myQueue.front()->data << endl;
-	cout << myQueue.frontPriority() << endl;
+	root = treeMaker(myQueue);
 
-	delete huff01;
+	delete huffA;
+	delete huffC;
+	delete huffE;
+	delete huffH;
+	delete huffR;
+	delete huffS;
 	return 0;
 }

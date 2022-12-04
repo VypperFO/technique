@@ -11,4 +11,9 @@ public:
     this->left = left;
     this->right = right;
   }
+  HuffmanNode(HuffmanNode *left = nullptr, HuffmanNode *right = nullptr)
+  {
+    this->left = left;
+    this->right = right;
+  }
 };

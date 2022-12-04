@@ -46,6 +46,7 @@ public:
       tmp->next = rear->next;
       rear->next = tmp;
     }
+    count++;
   }
 
   void pop()
@@ -57,6 +58,7 @@ public:
       tmp = first;
       first = first->next;
       delete (tmp);
+      count--;
     }
   }
 
