@@ -1,10 +1,10 @@
 class HuffmanNode
 {
+public:
   unsigned char data;
   HuffmanNode *left;
   HuffmanNode *right;
 
-public:
   HuffmanNode(unsigned char data, HuffmanNode *left = nullptr, HuffmanNode *right = nullptr)
   {
     this->data = data;
