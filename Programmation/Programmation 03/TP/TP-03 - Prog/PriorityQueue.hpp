@@ -18,6 +18,7 @@ public:
   {
     for (size_t i = 0; i < count; i++)
     {
+
       pop();
     }
   }
@@ -51,13 +52,11 @@ public:
 
   void pop()
   {
-    PQNode<T> *tmp;
-
     if (first != nullptr)
     {
-      tmp = first;
+      PQNode<T> *tmp = first;
       first = first->next;
-      delete (tmp);
+      delete tmp;
       count--;
     }
   }

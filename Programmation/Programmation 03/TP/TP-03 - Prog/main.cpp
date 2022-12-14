@@ -19,29 +19,29 @@ void exporting()
 {
 }
 
-HuffmanNode *treeMaker(PriorityQueue<HuffmanNode *> huffQueue)
+HuffmanNode *treeMaker(PriorityQueue<HuffmanNode *> *huffQueue)
 {
 	int priorityFirstNode = 0;
 	int prioritySecondNode = 0;
 	int sumPriority = 0;
 
-	while (huffQueue.size() > 1)
+	while (huffQueue->size() > 1)
 	{
-		HuffmanNode *firstNode = huffQueue.front();
-		priorityFirstNode = huffQueue.frontPriority();
-		huffQueue.pop();
-		HuffmanNode *secondNode = huffQueue.front();
-		prioritySecondNode = huffQueue.frontPriority();
-		huffQueue.pop();
+		HuffmanNode *firstNode = huffQueue->front();
+		priorityFirstNode = huffQueue->frontPriority();
+		huffQueue->pop();
+		HuffmanNode *secondNode = huffQueue->front();
+		prioritySecondNode = huffQueue->frontPriority();
+		huffQueue->pop();
 
 		sumPriority = priorityFirstNode + prioritySecondNode;
 
 		HuffmanNode *newNode = new HuffmanNode(firstNode, secondNode);
 
-		huffQueue.push(newNode, sumPriority);
+		huffQueue->push(newNode, sumPriority);
 	}
 
-	return huffQueue.front();
+	return huffQueue->front();
 }
 
 void seedPlanter()
@@ -77,12 +77,13 @@ void census(string str)
 }
 
 // Print the array
-void printArray(int arr[], int n)
+void addBinary(int arr[], int n, queue<int> *encodingQueue)
 {
-	int i;
-	for (i = 0; i < n; ++i)
+	for (int i = 0; i < n; ++i)
+	{
 		cout << arr[i];
-
+		encodingQueue->push(arr[i]);
+	}
 	cout << "\n";
 }
 
@@ -91,40 +92,38 @@ int isLeaf(HuffmanNode *root)
 	return !(root->left) && !(root->right);
 }
 
-void printHCodes(HuffmanNode *root, int arr[], int top, queue<int> *encodingQueue)
+void binaryTraversal(HuffmanNode *root, int arr[], int top, queue<int> *encodingQueue)
 {
 	if (root->left)
 	{
 		arr[top] = 0;
-		encodingQueue->push(0);
-		printHCodes(root->left, arr, top + 1, encodingQueue);
+		binaryTraversal(root->left, arr, top + 1, encodingQueue);
 	}
 
 	if (root->right)
 	{
 		arr[top] = 1;
-		encodingQueue->push(1);
-		printHCodes(root->right, arr, top + 1, encodingQueue);
+		binaryTraversal(root->right, arr, top + 1, encodingQueue);
 	}
 	if (isLeaf(root))
 	{
-		cout << root->data << "  | ";
-		printArray(arr, top);
+		cout << root->data << " | ";
+		addBinary(arr, top, encodingQueue);
 	}
 }
 
 queue<int> *encode(HuffmanNode *root)
 {
 	queue<int> *encodingQueue = new queue<int>();
-	int arr[50];
-	printHCodes(root, arr, 0, encodingQueue);
+	int arr[255];
+	binaryTraversal(root, arr, 0, encodingQueue);
 
 	return encodingQueue;
 }
 
 int main(int argc, char *argv[])
 {
-	PriorityQueue<HuffmanNode *> myQueue = PriorityQueue<HuffmanNode *>();
+	PriorityQueue<HuffmanNode *> *myQueue = new PriorityQueue<HuffmanNode *>();
 	HuffmanNode *root;
 	queue<int> *myEncodingQueue = new queue<int>();
 
@@ -136,21 +135,21 @@ int main(int argc, char *argv[])
 	HuffmanNode *huffS = new HuffmanNode('s');
 	HuffmanNode *huffNothing = new HuffmanNode(' ');
 
-	myQueue.push(huffA, 1);
-	myQueue.push(huffC, 2);
-	myQueue.push(huffE, 4);
-	myQueue.push(huffH, 1);
-	myQueue.push(huffR, 1);
-	myQueue.push(huffS, 6);
-	myQueue.push(huffNothing, 1);
+	myQueue->push(huffNothing, 1);
+	myQueue->push(huffH, 1);
+	myQueue->push(huffA, 1);
+	myQueue->push(huffR, 1);
+	myQueue->push(huffC, 2);
+	myQueue->push(huffE, 4);
+	myQueue->push(huffS, 6);
 
 	root = treeMaker(myQueue);
 
 	myEncodingQueue = encode(root);
 
-	for (size_t i = 0; i < myEncodingQueue->size(); i++)
+	for (int i = 0; i < 21; i++)
 	{
-		cout << myEncodingQueue->front() << endl;
+		cout << myEncodingQueue->front();
 		myEncodingQueue->pop();
 	}
 
@@ -160,5 +159,10 @@ int main(int argc, char *argv[])
 	delete huffH;
 	delete huffR;
 	delete huffS;
+	delete huffNothing;
+	delete root;
+	delete myEncodingQueue;
+	delete myQueue;
+
 	return 0;
 }
