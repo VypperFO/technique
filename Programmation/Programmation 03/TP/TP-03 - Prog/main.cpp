@@ -7,6 +7,18 @@
 
 using namespace std;
 
+void recensement(string myString, PriorityQueue<HuffmanNode *> *pq)
+{
+	int count = 0;
+	for (size_t i = 0; i < 256; i++)
+	{
+		for (int j = 0; (i = myString.find(i, j)) != std::string::npos; j++)
+		{
+			count++;
+		}
+	}
+}
+
 void decode()
 {
 }
