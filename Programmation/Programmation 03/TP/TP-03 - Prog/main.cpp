@@ -4,6 +4,8 @@
 #include "PriorityQueue.hpp"
 #include "HuffmanNode.hpp"
 #include <queue>
+#include <cstring>
+#include <fstream>
 
 using namespace std;
 
@@ -11,8 +13,15 @@ void decode()
 {
 }
 
-void importing()
+string importing()
 {
+	ifstream file("nomFicher.ext", ios::binary);
+
+	if (file.is_open())
+	{
+		unsigned char byte;
+		file.read(char *) & byte, sizeof(byte));
+	}
 }
 
 void exporting()
@@ -44,38 +53,20 @@ HuffmanNode *treeMaker(PriorityQueue<HuffmanNode *> *huffQueue)
 	return huffQueue->front();
 }
 
-void seedPlanter()
+void compression()
 {
 }
 
-void encryption()
-{
-}
-
-int countChar(string str, char searchChar)
-{
-	int count = 0;
-
-	for (unsigned char i = 0; i < 255; i++)
-	{
-		if (str.at(i) == searchChar)
-		{
-			count++;
-		}
-	}
-
-	return count;
-}
-
+/// @brief Recensement des char dans un string donnee
+/// @param myString le string
+/// @param pq la priority queue a ajouter le recensement
 void census(string myString, PriorityQueue<HuffmanNode *> *pq)
 {
-	string s = "hello, world!";
-
 	// create an array to store the frequency of each character
 	int freq[256] = {0};
 
 	// iterate through the string and count the frequency of each character
-	for (char ch : s)
+	for (char ch : myString)
 	{
 		freq[ch]++;
 	}
@@ -86,27 +77,42 @@ void census(string myString, PriorityQueue<HuffmanNode *> *pq)
 		if (freq[i] > 0)
 		{
 			cout << char(i) << ": " << freq[i] << endl;
+			HuffmanNode *node = new HuffmanNode(char(i));
+			pq->push(node, freq[i]);
 		}
 	}
 }
 
-// Print the array
-void addBinary(int arr[], int n, queue<int> *encodingQueue)
+/// @brief Ajoute un binaire
+/// @param arr table a ajouter binaire
+/// @param n top de la serie de binaire
+/// @param encodingQueue
+void addBinary(int arr[], int n, queue<string> *encodingQueue)
 {
+	string binaryChar;
 	for (int i = 0; i < n; ++i)
 	{
 		cout << arr[i];
-		encodingQueue->push(arr[i]);
+		binaryChar = binaryChar + to_string(arr[i]);
 	}
+	encodingQueue->push(binaryChar);
 	cout << "\n";
 }
 
+/// @brief Savoir si noeud est une feuille
+/// @param root la racine huffmannode
+/// @return le huffmannode gauche ou droite
 int isLeaf(HuffmanNode *root)
 {
 	return !(root->left) && !(root->right);
 }
 
-void binaryTraversal(HuffmanNode *root, int arr[], int top, queue<int> *encodingQueue)
+/// @brief Fonction recursive permettant d'assigner un 0 ou 1 a chaque char
+/// @param root la racine huffmannode
+/// @param arr table des 1 et 0 pour chaque char
+/// @param top top de la serie de binaire
+/// @param encodingQueue la file pour ajouter les binaires
+void binaryTraversal(HuffmanNode *root, int arr[], int top, queue<string> *encodingQueue)
 {
 	if (root->left)
 	{
@@ -126,10 +132,13 @@ void binaryTraversal(HuffmanNode *root, int arr[], int top, queue<int> *encoding
 	}
 }
 
-queue<int> *encode(HuffmanNode *root)
+/// @brief Encode tout les char avec un binaire unique a l'aide d'une racine huffmannode
+/// @param root la racine huffmannode
+/// @return une queue de binaire
+queue<string> *encode(HuffmanNode *root)
 {
-	queue<int> *encodingQueue = new queue<int>();
-	int arr[255];
+	queue<string> *encodingQueue = new queue<string>();
+	int arr[256];
 	binaryTraversal(root, arr, 0, encodingQueue);
 
 	return encodingQueue;
@@ -139,41 +148,31 @@ int main(int argc, char *argv[])
 {
 	PriorityQueue<HuffmanNode *> *myQueue = new PriorityQueue<HuffmanNode *>();
 	HuffmanNode *root;
-	queue<int> *myEncodingQueue = new queue<int>();
+	queue<string> *myEncodingQueue = new queue<string>();
 
-	HuffmanNode *huffA = new HuffmanNode('a');
-	HuffmanNode *huffC = new HuffmanNode('c');
-	HuffmanNode *huffE = new HuffmanNode('e');
-	HuffmanNode *huffH = new HuffmanNode('h');
-	HuffmanNode *huffR = new HuffmanNode('r');
-	HuffmanNode *huffS = new HuffmanNode('s');
-	HuffmanNode *huffNothing = new HuffmanNode(' ');
+	if (strcmp(argv[0], "huffman") && argc == 2)
+	{
+		cout << "huffman encoding....." << endl;
+	}
+	else if (strcmp(argv[0], "huffman") && argc == 3)
+	{
+		cout << "huffman decoding....." << endl;
+	}
+	else
+	{
+		cout << "nothing found" << endl;
+	}
 
-	myQueue->push(huffNothing, 1);
-	myQueue->push(huffH, 1);
-	myQueue->push(huffA, 1);
-	myQueue->push(huffR, 1);
-	myQueue->push(huffC, 2);
-	myQueue->push(huffE, 4);
-	myQueue->push(huffS, 6);
-
+	census("ces chasseresses", myQueue);
 	root = treeMaker(myQueue);
-
 	myEncodingQueue = encode(root);
 
-	for (int i = 0; i < 21; i++)
+	for (size_t i = 0; i < myEncodingQueue->size(); i++)
 	{
 		cout << myEncodingQueue->front();
 		myEncodingQueue->pop();
 	}
 
-	delete huffA;
-	delete huffC;
-	delete huffE;
-	delete huffH;
-	delete huffR;
-	delete huffS;
-	delete huffNothing;
 	delete root;
 	delete myEncodingQueue;
 	delete myQueue;
