@@ -7,18 +7,6 @@
 
 using namespace std;
 
-void recensement(string myString, PriorityQueue<HuffmanNode *> *pq)
-{
-	int count = 0;
-	for (size_t i = 0; i < 256; i++)
-	{
-		for (int j = 0; (i = myString.find(i, j)) != std::string::npos; j++)
-		{
-			count++;
-		}
-	}
-}
-
 void decode()
 {
 }
@@ -79,13 +67,27 @@ int countChar(string str, char searchChar)
 	return count;
 }
 
-void census(string str)
+void census(string myString, PriorityQueue<HuffmanNode *> *pq)
 {
-	int count = 0;
-	// for (int i = 0; (i = str.find(, i)) != string::npos; i++)
-	//{
-	// count++;
-	//}
+	string s = "hello, world!";
+
+	// create an array to store the frequency of each character
+	int freq[256] = {0};
+
+	// iterate through the string and count the frequency of each character
+	for (char ch : s)
+	{
+		freq[ch]++;
+	}
+
+	// print the frequency of each character
+	for (int i = 0; i < 256; i++)
+	{
+		if (freq[i] > 0)
+		{
+			cout << char(i) << ": " << freq[i] << endl;
+		}
+	}
 }
 
 // Print the array
