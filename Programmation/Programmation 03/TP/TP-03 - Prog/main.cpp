@@ -13,15 +13,22 @@ void decode()
 {
 }
 
-string importing()
+string importing(string nomFichier)
 {
-	ifstream file("nomFicher.ext", ios::binary);
+	string stringToEncode = "";
+	ifstream file(nomFichier, ios::binary);
 
 	if (file.is_open())
 	{
 		unsigned char byte;
-		file.read(char *) & byte, sizeof(byte));
+		while (file.read((char *)&byte, sizeof(byte)))
+		{
+			stringToEncode += byte;
+		}
 	}
+	file.close();
+
+	return stringToEncode;
 }
 
 void exporting()
@@ -147,23 +154,27 @@ queue<string> *encode(HuffmanNode *root)
 int main(int argc, char *argv[])
 {
 	PriorityQueue<HuffmanNode *> *myQueue = new PriorityQueue<HuffmanNode *>();
-	HuffmanNode *root;
 	queue<string> *myEncodingQueue = new queue<string>();
+	HuffmanNode *root;
+	string stringToEncode;
 
-	if (strcmp(argv[0], "huffman") && argc == 2)
+	if (strcmp(argv[0], "huffman") && argc == 3)
 	{
 		cout << "huffman encoding....." << endl;
+		stringToEncode = importing(argv[2]);
 	}
-	else if (strcmp(argv[0], "huffman") && argc == 3)
+	else if (strcmp(argv[0], "huffman") && argc == 4)
 	{
 		cout << "huffman decoding....." << endl;
 	}
 	else
 	{
-		cout << "nothing found" << endl;
+		// cout << "nothing found" << endl;
 	}
 
-	census("ces chasseresses", myQueue);
+	// cout << stringToEncode << endl;
+
+	/*census("ces chasseresses", myQueue);
 	root = treeMaker(myQueue);
 	myEncodingQueue = encode(root);
 
@@ -171,7 +182,7 @@ int main(int argc, char *argv[])
 	{
 		cout << myEncodingQueue->front();
 		myEncodingQueue->pop();
-	}
+	}*/
 
 	delete root;
 	delete myEncodingQueue;

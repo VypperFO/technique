@@ -1,11 +1,18 @@
+/// @file PriorityQueue.hpp
+/// @brief Classe PriorityQueue et ces methodes
+/// @author Felix-Olivier Latulippe felixlatulip@gmail.com
+
 #include "PQNode.hpp"
 
 template <typename T>
 
+/// @class PriorityQueue
+/// @brief Classe permettant d'implementer le Priority Queue
+/// @tparam T
 class PriorityQueue
 {
-  PQNode<T> *first;
-  size_t count;
+  PQNode<T> *first; ///< Le premier noeud
+  size_t count;     ///< Le nombre de noeuds
 
 public:
   PriorityQueue()
@@ -22,6 +29,9 @@ public:
     }
   }
 
+  /// @brief Permet d'ajouter un noeud ayant une donnee de type T dans la PriorityQueue
+  /// @param data Donnee de type T
+  /// @param priority Le numero de prioriter
   void push(T data, size_t priority)
   {
     PQNode<T> *tmp = new PQNode<T>(priority, data);
@@ -49,6 +59,7 @@ public:
     count++;
   }
 
+  /// @brief Permet d'enlever un noeud de la PriorityQueue
   void pop()
   {
     if (first != nullptr)
@@ -60,6 +71,8 @@ public:
     }
   }
 
+  /// @brief Permet de savooir la donnee du noeud du devant
+  /// @return La donnee de type T
   T front()
   {
     if (first)
@@ -69,6 +82,8 @@ public:
     return nullptr;
   }
 
+  /// @brief Permet de savoir la prioriter du noeud de devant
+  /// @return La prioriter du noeud de devant
   size_t frontPriority()
   {
     if (first)
@@ -78,6 +93,8 @@ public:
     return -1;
   }
 
+  /// @brief Permet de savoir la taille du PriorityQueue
+  /// @return Le nombre de noeud
   size_t size()
   {
     return count;
