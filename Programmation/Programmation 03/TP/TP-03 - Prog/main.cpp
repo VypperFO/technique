@@ -84,7 +84,18 @@ void census(string myString, PriorityQueue<HuffmanNode *> *pq)
 	}
 	file.close();
 }
-void addBinary(int arr[], int n, queue<string> *encodingQueue, unsigned char letter)
+
+void replaceAllChar(string binaryString, unsigned char letter)
+{
+	size_t pos = stringToEncode.find(letter);
+	while (pos != std::string::npos)
+	{
+		encodedString = stringToEncode.replace(pos, 1, binaryString);
+		pos = stringToEncode.find(letter);
+	}
+}
+
+void addBinary(int arr[], int n, unsigned char letter)
 {
 	string binaryString = "";
 	for (int i = 0; i < n; ++i)
@@ -92,17 +103,11 @@ void addBinary(int arr[], int n, queue<string> *encodingQueue, unsigned char let
 		cout << arr[i];
 		binaryString += to_string(arr[i]);
 	}
+	cout << endl;
 
-	cout << "\n";
-
-	size_t pos = stringToEncode.find(letter);
-	while (pos != std::string::npos)
-	{
-		encodedString = stringToEncode.replace(pos, 1, binaryString);
-		pos = stringToEncode.find(letter);
-	}
-	cout << encodedString << endl;
+	replaceAllChar(binaryString, letter);
 }
+
 /// @brief Savoir si noeud est une feuille
 /// @param root la racine huffmannode
 /// @return le huffmannode gauche ou droite
@@ -116,70 +121,108 @@ int isLeaf(HuffmanNode *root)
 /// @param arr table des 1 et 0 pour chaque char
 /// @param top top de la serie de binaire
 /// @param encodingQueue la file pour ajouter les binaires
-void binaryTraversal(HuffmanNode *root, int arr[], int top, queue<string> *encodingQueue)
+void binaryTraversal(HuffmanNode *root, int arr[], int top)
 {
 	if (root->left)
 	{
 		arr[top] = 0;
-		binaryTraversal(root->left, arr, top + 1, encodingQueue);
+		binaryTraversal(root->left, arr, top + 1);
 	}
 
 	if (root->right)
 	{
 		arr[top] = 1;
-		binaryTraversal(root->right, arr, top + 1, encodingQueue);
+		binaryTraversal(root->right, arr, top + 1);
 	}
 	if (isLeaf(root))
 	{
 		cout << root->data << " | ";
-		addBinary(arr, top, encodingQueue, root->data);
+		addBinary(arr, top, root->data);
 	}
 }
 
 /// @brief Encode tout les char avec un binaire unique a l'aide d'une racine huffmannode
 /// @param root la racine huffmannode
 /// @return une queue de binaire
-queue<string> *encode(HuffmanNode *root)
+void encode(HuffmanNode *root)
 {
-	queue<string> *encodingQueue = new queue<string>();
 	int arr[256];
-	binaryTraversal(root, arr, 0, encodingQueue);
+	binaryTraversal(root, arr, 0);
+}
 
-	return encodingQueue;
+void chiffrement()
+{
+	ofstream file(fileName + ".hd");
+
+	size_t start = 0;
+
+	while (start < encodedString.length())
+	{
+		string buffer = encodedString.substr(start, 8);
+
+		while (sizeof(buffer) % 8 != 0)
+		{
+			encodedString.push_back('0');
+		}
+		start += 8;
+
+		if (file.is_open())
+		{
+			file << stoi(buffer, 0, 2) << ' ';
+		}
+	}
+
+	file.close();
 }
 
 void huffmanEncode(string stringToEncode)
 {
 	PriorityQueue<HuffmanNode *> *myQueue = new PriorityQueue<HuffmanNode *>();
-	queue<string> *myEncodingQueue = new queue<string>();
 	HuffmanNode *root;
+
 	census(stringToEncode, myQueue);
 
 	root = treeMaker(myQueue);
-	myEncodingQueue = encode(root);
-
-	for (size_t i = 0; i < myEncodingQueue->size(); i++)
-	{
-		cout << myEncodingQueue->front() << endl;
-		myEncodingQueue->pop();
-	}
+	encode(root);
+	// chiffrement();
 
 	delete root;
-	delete myEncodingQueue;
 	delete myQueue;
+}
+
+// Decode the given string using the given Huffman tree
+string decode(HuffmanNode *root, string encoded)
+{
+	string decoded;
+	HuffmanNode *current = root;
+	for (char c : encoded)
+	{
+		if (c == '0')
+		{
+			current = current->left;
+		}
+		else
+		{
+			current = current->right;
+		}
+		if (current->left == nullptr && current->right == nullptr)
+		{
+			decoded += current->data;
+			current = root;
+		}
+	}
+	return decoded;
 }
 
 int main(int argc, char *argv[])
 {
-	string stringToEncode;
-
 	if (1 == 1 /*strcmp(argv[0], "huffman") && argc == 3*/)
 	{
 		cout << "huffman encoding....." << endl;
 		// fileName = argv[2];
 		fileName = "monFichier.ext";
-		stringToEncode = importing(fileName);
-		huffmanEncode(stringToEncode);
+		// stringToEncode = importing(fileName);
+		//  huffmanEncode(stringToEncode);
 	}
 	else if (strcmp(argv[0], "huffman") && argc == 4)
 	{
@@ -190,6 +233,15 @@ int main(int argc, char *argv[])
 		// cout << "nothing found" << endl;
 	}
 
-	cout << encodedString << endl;
+	cout << encodedString;
+
+	PriorityQueue<HuffmanNode *> *myQueue = new PriorityQueue<HuffmanNode *>();
+	HuffmanNode *root;
+
+	census(stringToEncode, myQueue);
+
+	root = treeMaker(myQueue);
+	string str = decode(root, "1010111100110100110001111010000111110111");
+
 	return 0;
 }
