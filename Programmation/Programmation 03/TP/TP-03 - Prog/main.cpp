@@ -10,6 +10,8 @@
 using namespace std;
 
 string fileName = "";
+string stringToEncode = "";
+string encodedString = "";
 
 void decode()
 {
@@ -75,32 +77,32 @@ void census(string myString, PriorityQueue<HuffmanNode *> *pq)
 	{
 		if (freq[i] > 0 && file.is_open())
 		{
-			cout << char(i) << ": " << freq[i] << endl;
 			HuffmanNode *node = new HuffmanNode(char(i));
 			pq->push(node, freq[i]);
-			unsigned char character[] = {i, ':'};
-
 			file << char(i) << ':' << freq[i] << endl;
 		}
 	}
 	file.close();
 }
-
-/// @brief Ajoute un binaire
-/// @param arr table a ajouter binaire
-/// @param n top de la serie de binaire
-/// @param encodingQueue
-void addBinary(int arr[], int n, queue<string> *encodingQueue)
+void addBinary(int arr[], int n, queue<string> *encodingQueue, unsigned char letter)
 {
-	string binaryChar;
+	string binaryString = "";
 	for (int i = 0; i < n; ++i)
 	{
 		cout << arr[i];
-		binaryChar = binaryChar + to_string(arr[i]);
+		binaryString += to_string(arr[i]);
 	}
-	cout << "\n";
-}
 
+	cout << "\n";
+
+	size_t pos = stringToEncode.find(letter);
+	while (pos != std::string::npos)
+	{
+		encodedString = stringToEncode.replace(pos, 1, binaryString);
+		pos = stringToEncode.find(letter);
+	}
+	cout << encodedString << endl;
+}
 /// @brief Savoir si noeud est une feuille
 /// @param root la racine huffmannode
 /// @return le huffmannode gauche ou droite
@@ -130,7 +132,7 @@ void binaryTraversal(HuffmanNode *root, int arr[], int top, queue<string> *encod
 	if (isLeaf(root))
 	{
 		cout << root->data << " | ";
-		addBinary(arr, top, encodingQueue);
+		addBinary(arr, top, encodingQueue, root->data);
 	}
 }
 
@@ -188,8 +190,6 @@ int main(int argc, char *argv[])
 		// cout << "nothing found" << endl;
 	}
 
-	string salope = importing("monFichier.ext.hk");
-
-	cout << salope;
+	cout << encodedString << endl;
 	return 0;
 }
