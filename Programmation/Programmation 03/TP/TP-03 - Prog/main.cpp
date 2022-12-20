@@ -9,13 +9,15 @@
 
 using namespace std;
 
+string fileName = "";
+
 void decode()
 {
 }
 
 string importing(string nomFichier)
 {
-	string stringToEncode = "";
+	string stringToImport = "";
 	ifstream file(nomFichier, ios::binary);
 
 	if (file.is_open())
@@ -23,16 +25,12 @@ string importing(string nomFichier)
 		unsigned char byte;
 		while (file.read((char *)&byte, sizeof(byte)))
 		{
-			stringToEncode += byte;
+			stringToImport += byte;
 		}
 	}
 	file.close();
 
-	return stringToEncode;
-}
-
-void exporting()
-{
+	return stringToImport;
 }
 
 HuffmanNode *treeMaker(PriorityQueue<HuffmanNode *> *huffQueue)
@@ -60,34 +58,32 @@ HuffmanNode *treeMaker(PriorityQueue<HuffmanNode *> *huffQueue)
 	return huffQueue->front();
 }
 
-void compression()
-{
-}
-
 /// @brief Recensement des char dans un string donnee
 /// @param myString le string
 /// @param pq la priority queue a ajouter le recensement
 void census(string myString, PriorityQueue<HuffmanNode *> *pq)
 {
-	// create an array to store the frequency of each character
-	int freq[256] = {0};
+	int freq[255] = {0};
+	ofstream file(fileName + ".hk");
 
-	// iterate through the string and count the frequency of each character
 	for (char ch : myString)
 	{
 		freq[ch]++;
 	}
 
-	// print the frequency of each character
-	for (int i = 0; i < 256; i++)
+	for (int i = 0; i < 255; i++)
 	{
-		if (freq[i] > 0)
+		if (freq[i] > 0 && file.is_open())
 		{
 			cout << char(i) << ": " << freq[i] << endl;
 			HuffmanNode *node = new HuffmanNode(char(i));
 			pq->push(node, freq[i]);
+			unsigned char character[] = {i, ':'};
+
+			file << char(i) << ':' << freq[i] << endl;
 		}
 	}
+	file.close();
 }
 
 /// @brief Ajoute un binaire
@@ -102,7 +98,6 @@ void addBinary(int arr[], int n, queue<string> *encodingQueue)
 		cout << arr[i];
 		binaryChar = binaryChar + to_string(arr[i]);
 	}
-	encodingQueue->push(binaryChar);
 	cout << "\n";
 }
 
@@ -151,17 +146,38 @@ queue<string> *encode(HuffmanNode *root)
 	return encodingQueue;
 }
 
-int main(int argc, char *argv[])
+void huffmanEncode(string stringToEncode)
 {
 	PriorityQueue<HuffmanNode *> *myQueue = new PriorityQueue<HuffmanNode *>();
 	queue<string> *myEncodingQueue = new queue<string>();
 	HuffmanNode *root;
+	census(stringToEncode, myQueue);
+
+	root = treeMaker(myQueue);
+	myEncodingQueue = encode(root);
+
+	for (size_t i = 0; i < myEncodingQueue->size(); i++)
+	{
+		cout << myEncodingQueue->front() << endl;
+		myEncodingQueue->pop();
+	}
+
+	delete root;
+	delete myEncodingQueue;
+	delete myQueue;
+}
+
+int main(int argc, char *argv[])
+{
 	string stringToEncode;
 
-	if (strcmp(argv[0], "huffman") && argc == 3)
+	if (1 == 1 /*strcmp(argv[0], "huffman") && argc == 3*/)
 	{
 		cout << "huffman encoding....." << endl;
-		stringToEncode = importing(argv[2]);
+		// fileName = argv[2];
+		fileName = "monFichier.ext";
+		stringToEncode = importing(fileName);
+		huffmanEncode(stringToEncode);
 	}
 	else if (strcmp(argv[0], "huffman") && argc == 4)
 	{
@@ -172,21 +188,8 @@ int main(int argc, char *argv[])
 		// cout << "nothing found" << endl;
 	}
 
-	// cout << stringToEncode << endl;
+	string salope = importing("monFichier.ext.hk");
 
-	/*census("ces chasseresses", myQueue);
-	root = treeMaker(myQueue);
-	myEncodingQueue = encode(root);
-
-	for (size_t i = 0; i < myEncodingQueue->size(); i++)
-	{
-		cout << myEncodingQueue->front();
-		myEncodingQueue->pop();
-	}*/
-
-	delete root;
-	delete myEncodingQueue;
-	delete myQueue;
-
+	cout << salope;
 	return 0;
 }
