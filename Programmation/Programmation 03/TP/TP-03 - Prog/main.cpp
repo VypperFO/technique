@@ -9,10 +9,13 @@
 
 using namespace std;
 
-string fileName = "";
-string stringToEncode = "";
-string encodedString = "";
+string fileName = "";				// Nom du fichier a encoder
+string stringToEncode = ""; // string a encoder
+string encodedString = "";	// string encoder
 
+/// @brief Importer le texte d'un fichier
+/// @param nomFichier le fichier
+/// @return Le texte sous forme de string
 string importing(string nomFichier)
 {
 	string stringToImport = "";
@@ -31,6 +34,9 @@ string importing(string nomFichier)
 	return stringToImport;
 }
 
+/// @brief Cree la racine huffman node
+/// @param huffQueue la priority queue
+/// @return la racine huffman node
 HuffmanNode *treeMaker(PriorityQueue<HuffmanNode *> *huffQueue)
 {
 	int priorityFirstNode = 0;
@@ -81,6 +87,9 @@ void census(string myString, PriorityQueue<HuffmanNode *> *pq)
 	file.close();
 }
 
+/// @brief Replace tout les char donner d'une string
+/// @param binaryString la string
+/// @param letter le char
 void replaceAllChar(string binaryString, unsigned char letter)
 {
 	size_t pos = stringToEncode.find(letter);
@@ -91,6 +100,10 @@ void replaceAllChar(string binaryString, unsigned char letter)
 	}
 }
 
+/// @brief ajoute les nombres binaire a une string
+/// @param arr table des binaires
+/// @param n le top du binaire
+/// @param letter la donnee appartenant a ce binaire
 void addBinary(int arr[], int n, unsigned char letter)
 {
 	string binaryString = "";
@@ -136,13 +149,13 @@ void binaryTraversal(HuffmanNode *root, int arr[], int top)
 
 /// @brief Encode tout les char avec un binaire unique a l'aide d'une racine huffmannode
 /// @param root la racine huffmannode
-/// @return une queue de binaire
 void encode(HuffmanNode *root)
 {
 	int arr[256];
 	binaryTraversal(root, arr, 0);
 }
 
+/// @brief chiffre les donnee avec le binaire et les met dans un fichier
 void chiffrement()
 {
 	ofstream file(fileName + ".hd");
@@ -168,6 +181,8 @@ void chiffrement()
 	file.close();
 }
 
+/// @brief fonction qui embaler tout les fonction pour encoder
+/// @param stringToEncode la string a encoder
 void huffmanEncode(string stringToEncode)
 {
 	PriorityQueue<HuffmanNode *> *myQueue = new PriorityQueue<HuffmanNode *>();
@@ -183,7 +198,10 @@ void huffmanEncode(string stringToEncode)
 	delete myQueue;
 }
 
-// Decode the given string using the given Huffman tree
+/// @brief fonction permettant de decoder un arbres de huffman
+/// @param root la racine de l'arbre
+/// @param encoded la string encoder
+/// @return la string decoder
 string decode(HuffmanNode *root, string encoded)
 {
 	string decoded;
@@ -207,6 +225,9 @@ string decode(HuffmanNode *root, string encoded)
 	return decoded;
 }
 
+/// @brief Fonction permettant d'ajouter les donnees de la cle dans la priority queue
+/// @param nomFichier nom du fichier de la cle
+/// @param pq la priority queue
 void addKeyPQ(string nomFichier, PriorityQueue<HuffmanNode *> *pq)
 {
 	ifstream file(nomFichier, ios::binary);
@@ -232,6 +253,9 @@ void addKeyPQ(string nomFichier, PriorityQueue<HuffmanNode *> *pq)
 	file.close();
 }
 
+/// @brief fonction permettant de convertir un nombre decimal en string binaire
+/// @param n le nombre decimal
+/// @return la string binaire
 string decimalToBinary(int n)
 {
 	string binary;
@@ -243,6 +267,9 @@ string decimalToBinary(int n)
 	return binary;
 }
 
+/// @brief fonction permettant d'avoir l'encodage en binaire
+/// @param nomFichier le nom du fichier de l'encodage
+/// @return la string binaire du fichier d'encodage
 string getEncoding(string nomFichier)
 {
 	ifstream file(nomFichier);
@@ -257,6 +284,10 @@ string getEncoding(string nomFichier)
 	return binary;
 }
 
+/// @brief fonction permettant de decoder une string avec un fichier cle et un fichier encoder
+/// @param nomFichierCle le nom du fichier cle
+/// @param nomFichierDecode le nom du fichier encoder
+/// @return la string decoder
 string huffmanDecode(string nomFichierCle, string nomFichierDecode)
 {
 	PriorityQueue<HuffmanNode *> *myQueue = new PriorityQueue<HuffmanNode *>();
