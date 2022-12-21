@@ -13,10 +13,6 @@ string fileName = "";
 string stringToEncode = "";
 string encodedString = "";
 
-void decode()
-{
-}
-
 string importing(string nomFichier)
 {
 	string stringToImport = "";
@@ -100,10 +96,8 @@ void addBinary(int arr[], int n, unsigned char letter)
 	string binaryString = "";
 	for (int i = 0; i < n; ++i)
 	{
-		cout << arr[i];
 		binaryString += to_string(arr[i]);
 	}
-	cout << endl;
 
 	replaceAllChar(binaryString, letter);
 }
@@ -136,7 +130,6 @@ void binaryTraversal(HuffmanNode *root, int arr[], int top)
 	}
 	if (isLeaf(root))
 	{
-		cout << root->data << " | ";
 		addBinary(arr, top, root->data);
 	}
 }
@@ -168,7 +161,7 @@ void chiffrement()
 
 		if (file.is_open())
 		{
-			file << stoi(buffer, 0, 2) << ' ';
+			file << stoi(buffer, 0, 2) << '\n';
 		}
 	}
 
@@ -184,7 +177,7 @@ void huffmanEncode(string stringToEncode)
 
 	root = treeMaker(myQueue);
 	encode(root);
-	// chiffrement();
+	chiffrement();
 
 	delete root;
 	delete myQueue;
@@ -214,34 +207,94 @@ string decode(HuffmanNode *root, string encoded)
 	return decoded;
 }
 
-int main(int argc, char *argv[])
+void addKeyPQ(string nomFichier, PriorityQueue<HuffmanNode *> *pq)
 {
-	if (1 == 1 /*strcmp(argv[0], "huffman") && argc == 3*/)
-	{
-		cout << "huffman encoding....." << endl;
-		// fileName = argv[2];
-		fileName = "monFichier.ext";
-		// stringToEncode = importing(fileName);
-		//  huffmanEncode(stringToEncode);
-	}
-	else if (strcmp(argv[0], "huffman") && argc == 4)
-	{
-		cout << "huffman decoding....." << endl;
-	}
-	else
-	{
-		// cout << "nothing found" << endl;
-	}
+	ifstream file(nomFichier, ios::binary);
 
-	cout << encodedString;
+	if (file.is_open())
+	{
+		size_t priority;
+		string temp;
+		unsigned char data;
+		unsigned char byte;
 
+		string line;
+		while (getline(file, line))
+		{
+			temp = line.substr(0, 1);
+			priority = stoi(line.substr(2, 3));
+
+			data = temp[0];
+			HuffmanNode *node = new HuffmanNode(data);
+			pq->push(node, priority);
+		}
+	}
+	file.close();
+}
+
+string decimalToBinary(int n)
+{
+	string binary;
+	while (n > 0)
+	{
+		binary = to_string(n % 2) + binary;
+		n /= 2;
+	}
+	return binary;
+}
+
+string getEncoding(string nomFichier)
+{
+	ifstream file(nomFichier);
+	string binary = "";
+	string line;
+
+	while (getline(file, line))
+	{
+		binary += decimalToBinary(stoi(line, 0, 10));
+	}
+	file.close();
+	return binary;
+}
+
+string huffmanDecode(string nomFichierCle, string nomFichierDecode)
+{
 	PriorityQueue<HuffmanNode *> *myQueue = new PriorityQueue<HuffmanNode *>();
 	HuffmanNode *root;
 
-	census(stringToEncode, myQueue);
+	addKeyPQ(nomFichierCle, myQueue);
 
 	root = treeMaker(myQueue);
-	string str = decode(root, "1010111100110100110001111010000111110111");
+	string decodedString = decode(root, getEncoding(nomFichierDecode));
+
+	delete root;
+	delete myQueue;
+
+	return decodedString;
+}
+
+int main(int argc, char *argv[])
+{
+	if (strcmp(argv[0], "huffman") && argc == 3)
+	{
+		cout << ".....huffman encoding....." << endl;
+		fileName = argv[2];
+		stringToEncode = importing(fileName);
+		huffmanEncode(stringToEncode);
+	}
+	else if (strcmp(argv[0], "huffman") && argc == 4)
+	{
+		cout << ".....huffman decoding....." << endl;
+		string fileKey = argv[2];
+		string fileCodes = argv[3];
+		string decodedString = huffmanDecode(fileKey, fileCodes);
+
+		cout << decodedString << endl;
+	}
+	else
+	{
+		cout << "Une erreur c'est produit" << endl;
+	}
 
 	return 0;
 }
